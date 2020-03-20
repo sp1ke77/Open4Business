@@ -24,14 +24,29 @@
 
       </form> 
       <h3>Contacto responsável</h3>
+      @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
       <form action="{{route('company.submitform')}}" class='dropzone' method="POST">
         <input type="hidden" name = "_token" value="{{ csrf_token() }}">
-        <label for="nome">Nome: </label><input type="text" name = "nome">
-        <label for="telefon">Telefone: </label><input type="text" name = "telefone">
-        <label for="email">Email: </label><input type="text" name = "email">
+        <label for="nome">Nome: </label><input type="text" name = "nome" value="{{old('nome')}}  ">
+        <label for="telefone">Telefone: </label><input type="text" name = "telefone" value="{{old('telefone')}}">
+        <label for="email">Email: </label><input type="text" name = "email" value="{{old('email')}}">
         <button type="submit" name="submit">submit</button>
       </form> 
-    </div> 
+    </div>
+
+    @if(session()->has('success_message'))
+    <div class="alert alert-success">
+        {{ session()->get('success_message') }}
+    </div>
+    @endif
 
     <!-- Script -->
     <script>
