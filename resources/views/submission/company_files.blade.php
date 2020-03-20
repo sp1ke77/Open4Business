@@ -25,12 +25,6 @@
     <p>Este formulário destina-se à submissão de um ficheiro com dados dos vários equipamentos abertos e seus horários. Para fazer download do ficheiro modelo a preencher, <a href="/examples/upload.csv">clique aqui</a>.
     O ficheiro deverá conter uma linha por cada horário de cada equipamento. Para melhor esclarecer a forma correta de preenchimento veja a seguinte imagem:<p>
     <a href="{{url('examples/uploadcsv.png')}}" data-lightbox="image-csvexample" data-title="exemplo csv"><img width="100%" src="{{url('examples/uploadcsv.png')}}"></a>
-    <!-- Dropzone -->
-    <h3>1) Faça aqui upload do ficheiro CSV e do logótipo da Marca</h3>
-    <form action="{{route('company.infoupload')}}" class='dropzone' >
-
-    </form> 
-    <h3>2) Contacto responsável</h3>
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -39,7 +33,19 @@
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
+
+    @if(session()->has('success_message'))
+    <div class="alert alert-success">
+        {{ session()->get('success_message') }}
+    </div>
+    @endif
+    <!-- Dropzone -->
+    <h3>1) Faça aqui upload do ficheiro CSV e do logótipo da Marca</h3>
+    <form action="{{route('company.infoupload')}}" class='dropzone' >
+
+    </form> 
+    <h3>2) Contacto responsável</h3>
     <form action="{{route('company.submitform')}}" class='dropzone' method="POST">
     <input type="hidden" name = "_token" value="{{ csrf_token() }}">
     <div class="form-group">
@@ -55,11 +61,6 @@
     <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
 </div>
 
-@if(session()->has('success_message'))
-<div class="alert alert-success">
-    {{ session()->get('success_message') }}
-</div>
-@endif
 
 <!-- Script -->
 <script>
@@ -67,6 +68,7 @@ var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute(
 
 Dropzone.autoDiscover = false;
 var fileDropZone = new Dropzone(".dropzone",{ 
+    maxFiles: 2,
     maxFilesize: 500,
     acceptedFiles: ".jpeg,.jpg,.png,.csv",
 });
