@@ -22,7 +22,7 @@
         </div>
 
     </div>
-    <p>Este formulário destina-se à submissão de um ficheiro com dados dos vários equipamentos abertos e seus horários. Para fazer download do ficheiro modelo a preencher, <a href="/examples/upload.csv">clique aqui</a>.
+    <p>Este formulário destina-se à submissão dos dados sobre vários equipamentos em functionamento e seus horários na plataforma <b>Open4Business</b>. Para fazer download do ficheiro modelo a preencher, <a href="/examples/upload.csv">clique aqui</a>.
     O ficheiro deverá conter uma linha por cada horário de cada equipamento. Para melhor esclarecer a forma correta de preenchimento veja a seguinte imagem:<p>
     <a href="{{url('examples/uploadcsv.png')}}" data-lightbox="image-csvexample" data-title="exemplo csv"><img width="100%" src="{{url('examples/uploadcsv.png')}}"></a>
     @if ($errors->any())
@@ -66,7 +66,7 @@
         </div>
     </div>
     <small id="submitHelp" class="form-text text-muted">Antes de submeter, verifique por favor que introduziu o logótipo da empresa e um ficheiro CSV.</small>
-    <small id="submitHelp" class="form-text text-muted">Todos os campos deste formulário são de campo obrigatório.</small>
+    <small id="submitHelp" class="form-text text-muted">*Todos os campos deste formulário são de preenchimento obrigatório.</small>
     <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
 </div>
 
