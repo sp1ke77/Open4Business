@@ -3,25 +3,25 @@
 @section('title', 'Formulário')
 
 @section('content')
-<div class="open4biz-header">
-    
-    <div class="row">
-        <div class="col-sm">
-        <img src="https://info.vost.pt/wp-content/uploads/2019/08/cropped-TEMPWEBSITE_ELEMENTS_VOSTPTLOGO_w160px-1.png">
-        </div>
-        <div class="col-sm header-title">
-        <h1>Open4Business</h1>
-        </div>
-        <div class="col-sm">
-        &nbsp;
-        </div>
-        <div class="col-sm">
-        &nbsp;
-        </div>
-    </div>
-
-</div>
 <div class='content'>
+    <div class="open4biz-header">
+        
+        <div class="row">
+            <div class="col-sm">
+            <img src="https://info.vost.pt/wp-content/uploads/2019/08/cropped-TEMPWEBSITE_ELEMENTS_VOSTPTLOGO_w160px-1.png">
+            </div>
+            <div class="col-sm header-title">
+            <h1>Open4Business</h1>
+            </div>
+            <div class="col-sm">
+            &nbsp;
+            </div>
+            <div class="col-sm">
+            &nbsp;
+            </div>
+        </div>
+
+    </div>
     <p>Este formulário destina-se à submissão de um ficheiro com dados dos vários equipamentos abertos e seus horários. Para fazer download do ficheiro modelo a preencher, <a href="/examples/upload.csv">clique aqui</a>.
     O ficheiro deverá conter uma linha por cada horário de cada equipamento. Para melhor esclarecer a forma correta de preenchimento veja a seguinte imagem:<p>
     <a href="{{url('examples/uploadcsv.png')}}" data-lightbox="image-csvexample" data-title="exemplo csv"><img width="100%" src="{{url('examples/uploadcsv.png')}}"></a>
@@ -46,18 +46,27 @@
 
     </form> 
     <h3>2) Contacto responsável</h3>
-    <form action="{{route('company.submitform')}}" class='dropzone' method="POST">
+    <form action="{{route('company.submitform')}}" method="POST">
     <input type="hidden" name = "_token" value="{{ csrf_token() }}">
-    <div class="form-group">
-        <label for="nome">Nome: </label><input class="form-control" type="text" name = "nome" value="{{old('nome')}}  ">
-    </div>
-    <div class="form-group">
-        <label for="telefone">Telefone: </label><input class="form-control" type="text" name = "telefone" value="{{old('telefone')}}">
-    </div>
-    <div class="form-group">
-        <label for="email">Email: </label><input class="form-control" type="text" name = "email" value="{{old('email')}}">
+    <div class="row">
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="nome">Nome*: </label><input class="form-control" type="text" name = "nome" value="{{old('nome')}}  ">
+            </div>
+        </div>  
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="telefone">Telefone*: </label><input class="form-control" type="text" name = "telefone" value="{{old('telefone')}}">
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="email">Email*: </label><input class="form-control" type="text" name = "email" value="{{old('email')}}">
+            </div>
+        </div>
     </div>
     <small id="submitHelp" class="form-text text-muted">Antes de submeter, verifique por favor que introduziu o logótipo da empresa e um ficheiro CSV.</small>
+    <small id="submitHelp" class="form-text text-muted">Todos os campos deste formulário são de campo obrigatório.</small>
     <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
 </div>
 
