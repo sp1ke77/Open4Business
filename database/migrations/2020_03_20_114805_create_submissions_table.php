@@ -16,8 +16,10 @@ class CreateSubmissionsTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
+            $table->string('apelido');
             $table->string('email');
             $table->string('telefone');
+            $table->string('nome_empresa');
             $table->string('csv_file');
             $table->string('logo_file');
             $table->integer('approved')->default(0);

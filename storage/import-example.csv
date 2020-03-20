@@ -1,7 +1,1 @@
-"Marca","Nome","Hora de abertura","Hora de fim","Restrições","Área de negócio","Endereço","Concelho","Distrito","# pessoal em simultaneo","observações","latitude","longitude"
-"Intermarche","Intermarche XPTO",08:30:00,09:30:00,"profissionais de saúde, forças de segurança","Supermercado","…","…","…",30,"…","…","…"
-,"Intermarche XPTO",09:30:00,11:30:00,"pessoas idosas",,,,,,,,
-,"Intermarche XPTO",11:30:00,19:00:00,"sem restrições",,,,,,,,
-"Intermarche","Intermarche XPTO2",08:30:00,09:30:00,"profissionais de saúde, forças de segurança","Supermercado","…","…","…",30,"…","…","…"
-,"Intermarche XPTO2",09:30:00,11:30:00,"pessoas idosas",,,,,,,,
-,"Intermarche XPTO2",11:30:00,19:00:00,"sem restrições",,,,,,,,
+Empresa,Loja,Sector,Endereço,Concelho,Distrito,Código Postal,Contacto,# pessoas em simultaneo,observações,latitude,longitude,Horário 1,Descrição 1,Horário 2,Descrição 2,Horário 3,Descrição 3

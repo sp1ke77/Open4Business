@@ -64,8 +64,10 @@ class SubmitController extends Controller
 
         $validator = Validator::make($request->all(), [
             'nome' => 'required',
+            'apelido' => 'required',
             'email' => 'required',
             'telefone' => 'required',
+            'nome_empresa' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -90,6 +92,8 @@ class SubmitController extends Controller
         try {
             $submission = \App\Submission::create([
                 'nome' => $request->get('nome'),
+                'apelido' => $request->get('apelido'),
+                'nome_empresa' => $request->get('nome_empresa'),
                 'telefone' => $request->get('telefone'),
                 'email' => $request->get('email'),
                 'csv_file' => $csvfile,
