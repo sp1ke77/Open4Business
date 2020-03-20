@@ -20,6 +20,7 @@ class CreateSubmissionsTable extends Migration
             $table->string('telefone');
             $table->string('csv_file');
             $table->string('logo_file');
+            $table->integer('approved')->default(0);
             $table->timestamps();
         });
     }
