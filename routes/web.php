@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return "";
 });
+
+
+Route::get('/submit', 'SubmitController@index');
+Route::post('/submit/documents', 'SubmitController@submitDocuments')->name('company.infoupload');
+Route::post('/submit/form', 'SubmitController@submitForm')->name('company.submitform');
