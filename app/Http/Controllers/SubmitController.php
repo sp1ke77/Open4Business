@@ -77,7 +77,6 @@ class SubmitController extends Controller
         try {
             $validated['csv_file']  = $csvfile;
             $validated['logo_file'] = $imgfile;
-            Submission::create($validated);
         } catch (\Exception $e) {
             $errorId = Str::uuid();
             Log::emergency($errorId.' => '.$e);
