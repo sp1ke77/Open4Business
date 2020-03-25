@@ -21,8 +21,8 @@ class CreateEquipmentTable extends Migration
             $table->string('district');
             $table->string('zipcode');
             $table->string('remarks');
-            $table->dobule('latitude');
-            $table->dobule('longitude');
+            $table->double('latitude');
+            $table->double('longitude');
 
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
