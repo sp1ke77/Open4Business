@@ -33,7 +33,7 @@
 - created_at
 - updated_at
 
-### Submission Schedule
+### Submission Entry Schedule
 
 - id
 - submission_entry_id
