@@ -67,6 +67,8 @@
 - lastname
 - contact
 - email
+- created_at
+- updated_at
 
 ### Business Schedule
 
@@ -82,6 +84,9 @@
 - friday
 - saturday
 - type
+- created_at
+- updated_at
+- deleted_at
 
 ---
 
