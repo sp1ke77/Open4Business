@@ -63,6 +63,10 @@
 - long (double with 5 decimal places)
 - phone_number
 - sector
+- firstname
+- lastname
+- contact
+- email
 
 ### Business Schedule
 
