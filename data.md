@@ -9,8 +9,8 @@
 - lastname
 - contact
 - email
+- confirmed
 - validated
-- submitted
 - created_at
 - updated_at
 - deleted_at
