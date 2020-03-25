@@ -15,7 +15,7 @@ class CreateSubmissionEntriesTable extends Migration
     {
         Schema::create('submission_entries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('business_id');
+            $table->unsignedBigInteger('business_id')->nullable();
             $table->unsignedBigInteger('submission_id');
             $table->string('store_name');
             $table->string('address');

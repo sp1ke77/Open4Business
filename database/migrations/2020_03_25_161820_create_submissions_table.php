@@ -19,8 +19,8 @@ class CreateSubmissionsTable extends Migration
             $table->string('lastname');
             $table->string('contact');
             $table->string('email');
+            $table->boolean('confirmed');
             $table->boolean('validated');
-            $table->boolean('submitted');
             $table->timestamps();
             $table->softDeletes();
         });

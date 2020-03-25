@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BusinessSchedule extends Model
 {
     use SoftDeletes;
-    private static function getTypeNumberFromString($type)
+    public static function getTypeNumberFromString($type)
     {
         $type_strings = [
             'Forças de Segurança, Entidades de Proteção Civil e Profissionais de Saúde',
@@ -40,6 +40,7 @@ class BusinessSchedule extends Model
         $business_schedule->saturday = $saturday;
         $business_schedule->type = $type;
         $business_schedule->save();
+        return $business_schedule;
     }
 
     public function business() {

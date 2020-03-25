@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Business extends Model
 {
-    private static function getSectorNumberFromString($sector)
+    public static function getSectorNumberFromString($sector)
     {
         $sector_strings = [
             'Minimercados, supermercados, hipermercados',
@@ -48,37 +48,44 @@ class Business extends Model
             'Atividades e estabelecimentos enunciados nos números anteriores, ainda que integrados em centros comerciais',
         ];
         $sector = \array_search($sector, $sector_strings, true);
-        if($sector == -1) {
+        if ($sector == -1) {
             $sector = 0;
         }
         return $sector;
     }
 
-    public static function createBusiness($store_name,$address,$parish,$county,$district,$postal_code,$lat,$long,$phone_number,$sector,$firstname,$lastname,$contact,$email) {
+    public static function createBusiness($store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email)
+    {
         if (\is_string($sector)) {
             $sector = Business::getSectorNumberFromString($sector);
         }
-        $business = new Business();
-        $business->store_name = $store_name;
-        $business->address = $address;
-        $business->parish = $parish;
-        $business->county = $county;
-        $business->district = $district;
-        $business->postal_code = $postal_code;
-        $business->lat = $lat;
-        $business->long = $long;
+        $business               = new Business();
+        $business->store_name   = $store_name;
+        $business->address      = $address;
+        $business->parish       = $parish;
+        $business->county       = $county;
+        $business->district     = $district;
+        $business->postal_code  = $postal_code;
+        $business->lat          = $lat;
+        $business->long         = $long;
         $business->phone_number = $phone_number;
-        $business->sector = $sector;
-        $business->firstname = $firstname;
-        $business->lastname = $lastname;
-        $business->contact = $contact;
-        $business->email = $email;
+        $business->sector       = $sector;
+        $business->firstname    = $firstname;
+        $business->lastname     = $lastname;
+        $business->contact      = $contact;
+        $business->email        = $email;
         $business->save();
         return $business;
     }
 
-    public function schedules() {
+    public function schedules()
+    {
         return $this->hasMany(BusinessSchedule::class);
+    }
+
+    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)
+    {
+        BusinessSchedule::createBusiness($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type);
     }
 
     public function updateStoreName($store_name)
