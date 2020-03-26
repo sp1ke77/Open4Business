@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -63,6 +65,12 @@ class User extends Authenticatable
         return $this->type == 1;
     }
 
+    public function updateInformation($name,$email) {
+        $this->name = $name;
+        $this->email = $email;
+        $this->save();
+    }
+
     public function updateName($name) {
         $this->name = $name;
         $this->save();
@@ -76,5 +84,22 @@ class User extends Authenticatable
     public function updatePassword($password) {
         $this->password = Hash::make($password);
         $this->save();
+    }
+
+    public function validatePassword($password) {
+        return Hash::check($password, $this->password);
+    }
+    
+    public function setTeamUser() {
+        $this->api_key = null;
+        $this->api_secret = null;
+        $this->type = 0;
+        $this->save();
+    }
+
+    public function setBigCompanyUser() {
+        $this->type = 1;
+        $this->save();
+        $this->generateAPIKeyAndAPISecret();
     }
 }

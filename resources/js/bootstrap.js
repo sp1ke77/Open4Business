@@ -9,9 +9,8 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+
     require('bootstrap');
-    window.Dropzone = require('dropzone');
-    require('lightbox2');
 } catch (e) {}
 
 /**
