@@ -1,1 +1,1 @@
-Empresa,Loja,Sector,Endereço,Concelho,Distrito,Código Postal,Contacto,# pessoas em simultaneo,observações,latitude,longitude,Horário 1,Descrição 1,Horário 2,Descrição 2,Horário 3,Descrição 3
+OURID;EMPRESA;LOJA;MORADA;FREGUESIA;CONCELHO;DISTRITO;CÓDIGO POSTAL;LATITUDE (x);LONGITUDE (y);TELEFONE;SECTOR (Escolher Um);HORÁRIO X;DIAS DA SEMANA HORARIO X;TIPO HORÁRIO X (Escolher Um);

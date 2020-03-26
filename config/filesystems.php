@@ -58,6 +58,11 @@ return [
             'root' => storage_path('app/imgfiles'),
         ],
 
+        'local_tempsubmissions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/tempsubmissions'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

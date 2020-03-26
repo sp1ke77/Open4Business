@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubmissionEntry extends Model
 {
-    public static function createSubmissionEntry($submission_id,$business_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
+    public static function createSubmissionEntry($submission_id,$business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
         if (\is_string($sector)) {
             $sector = Business::getSectorNumberFromString($sector);
@@ -15,6 +15,7 @@ class SubmissionEntry extends Model
         $submission_entry                = new SubmissionEntry();
         $submission_entry->submission_id = $submission_id;
         $submission_entry->business_id   = $business_id;
+        $submission_entry->company    = $company;
         $submission_entry->store_name    = $store_name;
         $submission_entry->address       = $address;
         $submission_entry->parish        = $parish;
@@ -50,6 +51,12 @@ class SubmissionEntry extends Model
 
     public function updateBusiness($business_id) {
         $this->business_id = $business_id;
+    }
+
+    public function updateCompany($company)
+    {
+        $this->company = $company;
+        $this->save();
     }
 
     public function updateStoreName($store_name)
