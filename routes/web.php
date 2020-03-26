@@ -16,6 +16,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/submit', 'SubmitController@index');
-Route::post('/submit/documents', 'SubmitController@submitDocuments')->name('company.infoupload');
-Route::post('/submit/form', 'SubmitController@submitForm')->name('company.submitform');
+Route::get('/submit', 'SubmissionController@index');
+Route::post('/submit/documents', 'SubmissionController@submitDocuments')->name('company.infoupload');
+Route::post('/submit/form', 'SubmissionController@submitForm')->name('company.submitform');

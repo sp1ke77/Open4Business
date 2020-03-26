@@ -48,10 +48,34 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'local_csvfiles' => [
+            'driver' => 'local',
+            'root' => storage_path('app/csvfiles'),
+        ],
+
+        'local_imgfiles' => [
+            'driver' => 'local',
+            'root' => storage_path('app/imgfiles'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'public_submissions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/submissions'),
+            'url' => env('APP_URL').'/storage/submissions',
+            'visibility' => 'public',
+        ],
+
+        'public_businesses' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/businesses'),
+            'url' => env('APP_URL').'/storage/businesses',
             'visibility' => 'public',
         ],
 

@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubmissionEntry extends Model
 {
-    public static function createSubmissionEntry($business_id, $submission_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
+    public static function createSubmissionEntry($submission_id,$business_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
         if (\is_string($sector)) {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $submission_entry                = new SubmissionEntry();
-        $submission_entry->business_id   = $business_id;
         $submission_entry->submission_id = $submission_id;
+        $submission_entry->business_id   = $business_id;
         $submission_entry->store_name    = $store_name;
         $submission_entry->address       = $address;
         $submission_entry->parish        = $parish;
@@ -41,6 +41,11 @@ class SubmissionEntry extends Model
 
     public function schedules() {
         return $this->hasMany(SubmissionEntrySchedule::class);
+    }
+
+    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type) {
+        $submission_entry_schedule = SubmissionEntrySchedule::createSubmissionEntrySchedule($this->id,$start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type);
+        return $submission_entry_schedule;
     }
 
     public function updateBusiness($business_id) {
