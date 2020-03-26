@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
@@ -12,10 +13,25 @@
 */
 
 Route::get('/', function () {
-    return "";
+    return '';
 });
 
 
 Route::get('/submit', 'SubmissionController@index');
 Route::post('/submit/documents', 'SubmissionController@submitDocuments')->name('company.infoupload');
 Route::post('/submit/form', 'SubmissionController@submitForm')->name('company.submitform');
+
+Auth::routes([
+    'verify' => false,
+    'register' => false,
+    'reset' => false
+]);
+
+
+Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name('backoffice.')->group(function () {
+    Route::get('/', 'HomeController@index');
+
+    Route::get('user/profile', function () {
+        // Uses first & second Middleware
+    });
+});
