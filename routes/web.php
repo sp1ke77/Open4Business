@@ -29,9 +29,13 @@ Auth::routes([
 
 
 Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name('backoffice.')->group(function () {
-    Route::get('/', 'HomeController@index');
-
-    Route::get('user/profile', function () {
-        // Uses first & second Middleware
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::prefix('users')->middleware(['teamUser'])->name('users.')->group(function () {
+        Route::get('/', 'UsersController@index')->name('index');
+        Route::get('/new', 'UsersController@new')->name('new');
+        Route::get('/edit/{id}', 'UsersController@edit')->name('edit');
+        Route::post('/create', 'UsersController@create')->name('create');
+        Route::post('/update', 'UsersController@update')->name('update');
+        Route::post('/delete', 'UsersController@delete')->name('delete');
     });
 });
