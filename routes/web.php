@@ -17,9 +17,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/submit', 'SubmissionController@index');
-Route::post('/submit/documents', 'SubmissionController@submitDocuments')->name('company.infoupload');
-Route::post('/submit/form', 'SubmissionController@submitForm')->name('company.submitform');
+
 
 Auth::routes([
     'verify' => false,
@@ -27,6 +25,11 @@ Auth::routes([
     'reset' => false
 ]);
 
+Route::prefix('mass_submission')->middleware(['auth'])->name('mass_submission.')->group(function () {
+    Route::get('/', 'MassSubmissionController@index')->name('index');
+    Route::post('/documents', 'MassSubmissionController@submitDocuments')->name('infoupload');
+    Route::post('/form', 'MassSubmissionController@submitForm')->name('submitform');
+});
 
 Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name('backoffice.')->group(function () {
     Route::get('/', 'HomeController@index')->name('index');

@@ -73,7 +73,7 @@ class ProcessMassSubmission implements ShouldQueue
         $submission = Submission::createSubmission($this->firstname, $this->lastname, $this->contact, $this->email);
         Storage::disk('public_submission')->put($this->submission->id.'.'.$this->img_file_extension, $this->img_file);
         foreach ($this->entries as $entry) {
-            ProcessSingleSubmission::dispatch(null,null,null,null,$entry->business_id, $entry->store_name, $entry->address, $entry->parish, $entry->county, $entry->district, $entry->postal_code, $entry->lat, $entry->long, $entry->phone_number, $entry->sector, $entry->schedules, null, null, $submission, true);
+            ProcessSingleSubmission::dispatch(null,null,null,null,$entry["business_id"], $entry["company_name"],$entry["store_name"], $entry["address"], $entry["parish"], $entry["county"], $entry["district"], $entry["postal_code"], $entry["lat"], $entry["long"], $entry["phone_number"], $entry["sector"], $entry["schedules"], null, null, $submission, true);
         }
     }
 }

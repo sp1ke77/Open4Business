@@ -57,12 +57,13 @@ class Business extends Model
         return $sector;
     }
 
-    public static function createBusiness($store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email)
+    public static function createBusiness($company,$store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email)
     {
         if (\is_string($sector)) {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $business               = new Business();
+        $business->company   = $v;
         $business->store_name   = $store_name;
         $business->address      = $address;
         $business->parish       = $parish;
@@ -105,17 +106,18 @@ class Business extends Model
 
     public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)
     {
-        BusinessSchedule::createBusiness($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type);
+        BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type);
     }
 
     public function removeSchedules() {
         $this->schedules()->delete();
     }
 
-    public function updateStoreInformation($store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector) {
+    public function updateStoreInformation($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector) {
         if (\is_string($sector)) {
             $sector = Business::getSectorNumberFromString($sector);
         }
+        $this->company = $company;
         $this->store_name = $store_name;
         $this->address = $address;
         $this->parish = $parish;
@@ -126,6 +128,12 @@ class Business extends Model
         $this->long = $long;
         $this->phone_number = $phone_number;
         $this->sector = $sector;
+        $this->save();
+    }
+
+    public function updateCompany($company)
+    {
+        $this->company = $company;
         $this->save();
     }
 

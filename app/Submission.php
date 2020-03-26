@@ -45,9 +45,9 @@ class Submission extends Model
         return $image_name;
     }
 
-    public function addEntry($business_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
+    public function addEntry($business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
-        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
+        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
         return $submission_entry;
     }
 

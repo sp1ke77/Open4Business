@@ -19,6 +19,7 @@ class ProcessSingleSubmission implements ShouldQueue
     private $lastname;
     private $contact;
     private $email;
+    private $company;
     private $store_name;
     private $address;
     private $parish; 
@@ -39,7 +40,7 @@ class ProcessSingleSubmission implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($firstname,$lastname,$contact,$email, $business_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $schedules, $img_file, $img_file_extension, $submission = null, $auto_validation = false)
+    public function __construct($firstname,$lastname,$contact,$email, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $schedules, $img_file, $img_file_extension, $submission = null, $auto_validation = false)
     {
         /** SCHEDULES
          * - start_hour
@@ -58,6 +59,7 @@ class ProcessSingleSubmission implements ShouldQueue
         $this->contact = $contact;
         $this->email = $email;
         $this->business_id = $business_id;
+        $this->company = $company;
         $this->store_name = $store_name;
         $this->address = $address;
         $this->parish = $parish;
@@ -94,7 +96,7 @@ class ProcessSingleSubmission implements ShouldQueue
             }
         }
 
-        $entry = $this->submission->createEntry($this->business_id, $this->store_name, $this->address, $this->parish, $this->county, $this->district, $this->postal_code, $this->lat, $this->long, $this->phone_number, $this->sector);
+        $entry = $this->submission->addEntry($this->business_id,$this->company, $this->store_name, $this->address, $this->parish, $this->county, $this->district, $this->postal_code, $this->lat, $this->long, $this->phone_number, $this->sector);
         foreach ($this->schedules as $schedule) {
             $entry->addSchedule($schedule['start_hour'],$schedule['end_hour'],$schedule['type'],$schedule['sunday'],$schedule['monday'],$schedule['tuesday'],$schedule['wednesday'],$schedule['thrusday'],$schedule['friday'],$schedule['saturday']);
         }

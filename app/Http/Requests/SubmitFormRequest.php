@@ -14,11 +14,10 @@ class SubmitFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required',
-            'apelido' => 'required',
-            'email' => 'required',
-            'telefone' => 'required',
-            'nome_empresa' => 'required',
+            'firstname' => ['required','string'],
+            'lastname' => ['required','string'],
+            'email' => ['required','email'],
+            'contact' => ['required','string']
         ];
     }
 }
