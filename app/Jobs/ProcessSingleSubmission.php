@@ -19,6 +19,7 @@ class ProcessSingleSubmission implements ShouldQueue
     private $lastname;
     private $contact;
     private $email;
+    private $business_id;
     private $company;
     private $store_name;
     private $address;
@@ -98,10 +99,10 @@ class ProcessSingleSubmission implements ShouldQueue
 
         $entry = $this->submission->addEntry($this->business_id,$this->company, $this->store_name, $this->address, $this->parish, $this->county, $this->district, $this->postal_code, $this->lat, $this->long, $this->phone_number, $this->sector);
         foreach ($this->schedules as $schedule) {
-            $entry->addSchedule($schedule['start_hour'],$schedule['end_hour'],$schedule['type'],$schedule['sunday'],$schedule['monday'],$schedule['tuesday'],$schedule['wednesday'],$schedule['thrusday'],$schedule['friday'],$schedule['saturday']);
+            $entry->addSchedule($schedule['start_hour'],$schedule['end_hour'],$schedule['sunday'],$schedule['monday'],$schedule['tuesday'],$schedule['wednesday'],$schedule['thrusday'],$schedule['friday'],$schedule['saturday'],$schedule['type']);
         }
         if($this->auto_validation) {
-            $entry->validate();
+            $this->submission->validate();
         }
     }
 }

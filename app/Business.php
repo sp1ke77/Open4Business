@@ -57,13 +57,13 @@ class Business extends Model
         return $sector;
     }
 
-    public static function createBusiness($company,$store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email)
+    public static function createBusiness($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email)
     {
-        if (\is_string($sector)) {
+        if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $business               = new Business();
-        $business->company   = $v;
+        $business->company      = $company;
         $business->store_name   = $store_name;
         $business->address      = $address;
         $business->parish       = $parish;
@@ -82,8 +82,9 @@ class Business extends Model
         return $business;
     }
 
-    public static function findBusinesses($lat,$long,$store_name) {
-        return Business::whereBetween('lat',[$lat - 0.0001, $lat + 0.0001])->whereBetween('long',[$long - 0.0001, $long + 0.0001])->where('store_name','=',$store_name)->get();
+    public static function findBusinesses($lat, $long, $store_name)
+    {
+        return Business::whereBetween('lat', [$lat - 0.0001, $lat + 0.0001])->whereBetween('long', [$long - 0.0001, $long + 0.0001])->where('store_name', '=', $store_name)->get();
     }
 
     public function schedules()
@@ -94,13 +95,13 @@ class Business extends Model
     public function getImageAttribute()
     {
         $allowed_extensions = ['.jpg','.jpeg','.png'];
-        $image_name = null;
+        $image_name         = null;
         foreach ($allowed_extensions as $extension) {
-            if(Storage::disk('public_businesses')->exists($this->id.$extension)) {
+            if (Storage::disk('public_businesses')->exists($this->id.$extension)) {
                 $image_name = $this->id.$extension;
                 break;
             }
-        }        
+        }
         return $image_name;
     }
 
@@ -109,25 +110,27 @@ class Business extends Model
         BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type);
     }
 
-    public function removeSchedules() {
+    public function removeSchedules()
+    {
         $this->schedules()->delete();
     }
 
-    public function updateStoreInformation($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector) {
-        if (\is_string($sector)) {
+    public function updateStoreInformation($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
+    {
+        if (\gettype($sector) == "string") {
             $sector = Business::getSectorNumberFromString($sector);
         }
-        $this->company = $company;
-        $this->store_name = $store_name;
-        $this->address = $address;
-        $this->parish = $parish;
-        $this->county = $county;
-        $this->district = $district;
-        $this->postal_code = $postal_code;
-        $this->lat = $lat;
-        $this->long = $long;
+        $this->company      = $company;
+        $this->store_name   = $store_name;
+        $this->address      = $address;
+        $this->parish       = $parish;
+        $this->county       = $county;
+        $this->district     = $district;
+        $this->postal_code  = $postal_code;
+        $this->lat          = $lat;
+        $this->long         = $long;
         $this->phone_number = $phone_number;
-        $this->sector = $sector;
+        $this->sector       = $sector;
         $this->save();
     }
 
@@ -193,18 +196,19 @@ class Business extends Model
 
     public function updateSector($sector)
     {
-        if (\is_string($sector)) {
+        if (\gettype($sector) == "string") {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $this->sector = $sector;
         $this->save();
     }
 
-    public function updateContactInformation($firstname,$lastname,$contact,$email) {
+    public function updateContactInformation($firstname, $lastname, $contact, $email)
+    {
         $this->firstname = $firstname;
-        $this->lastname = $lastname;
-        $this->contact = $contact;
-        $this->email = $email;
+        $this->lastname  = $lastname;
+        $this->contact   = $contact;
+        $this->email     = $email;
         $this->save();
     }
 

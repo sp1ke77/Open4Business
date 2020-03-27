@@ -24,7 +24,7 @@ class BusinessSchedule extends Model
     }
 
     public static function createSchedule($business_id,$start_hour,$end_hour,$sunday,$monday,$tuesday,$wednesday,$thrusday,$friday,$saturday,$type) {
-        if (\is_string($type)) {
+        if (\gettype($type) == "string") {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         $business_schedule = new BusinessSchedule();
@@ -103,7 +103,7 @@ class BusinessSchedule extends Model
 
     public function updateType($type)
     {
-        if (\is_string($type)) {
+        if (\gettype($type) == "string") {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         $this->type = $type;
