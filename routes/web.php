@@ -25,7 +25,7 @@ Auth::routes([
     'reset' => false
 ]);
 
-Route::prefix('mass_submission')->middleware(['auth'])->name('mass_submission.')->group(function () {
+Route::prefix('mass_submission')->middleware(['auth','bigCompanyUser'])->name('mass_submission.')->group(function () {
     Route::get('/', 'MassSubmissionController@index')->name('index');
     Route::post('/documents', 'MassSubmissionController@submitDocuments')->name('infoupload');
     Route::post('/form', 'MassSubmissionController@submitForm')->name('submitform');
@@ -49,5 +49,11 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
         Route::post('/schedules/delete', 'SubmissionsController@schedules_delete')->name('schedules.delete');
         Route::post('/validate', 'SubmissionsController@validation')->name('validate');
         Route::post('/delete', 'SubmissionsController@delete')->name('delete');
+    });
+    Route::prefix('businesses')->middleware(['teamUser'])->name('businesses.')->group(function () {
+        Route::get('/', 'BusinessesController@index')->name('index');
+        Route::get('/schedules/{id}', 'BusinessesController@schedules')->name('schedules');
+        Route::post('/schedules/delete', 'BusinessesController@schedules_delete')->name('schedules.delete');
+        Route::post('/delete', 'BusinessesController@delete')->name('delete');
     });
 });
