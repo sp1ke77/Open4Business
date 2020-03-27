@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubmissionEntry extends Model
 {
-    public static function createSubmissionEntry($submission_id,$business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
+    public static function createSubmissionEntry($submission_id, $business_id, $company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
-        if (\is_string($sector)) {
+        if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $submission_entry                = new SubmissionEntry();
         $submission_entry->submission_id = $submission_id;
         $submission_entry->business_id   = $business_id;
-        $submission_entry->company    = $company;
+        $submission_entry->company       = $company;
         $submission_entry->store_name    = $store_name;
         $submission_entry->address       = $address;
         $submission_entry->parish        = $parish;
@@ -40,16 +40,19 @@ class SubmissionEntry extends Model
         return $this->belongsTo(Submission::class);
     }
 
-    public function schedules() {
+    public function schedules()
+    {
         return $this->hasMany(SubmissionEntrySchedule::class);
     }
 
-    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type) {
-        $submission_entry_schedule = SubmissionEntrySchedule::createSubmissionEntrySchedule($this->id,$start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type);
+    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)
+    {
+        $submission_entry_schedule = SubmissionEntrySchedule::createSubmissionEntrySchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type);
         return $submission_entry_schedule;
     }
 
-    public function updateBusiness($business_id) {
+    public function updateBusiness($business_id)
+    {
         $this->business_id = $business_id;
     }
 
@@ -115,7 +118,7 @@ class SubmissionEntry extends Model
 
     public function updateSector($sector)
     {
-        if (\is_string($sector)) {
+        if (\gettype($sector) == "string") {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $this->sector = $sector;

@@ -71,16 +71,7 @@ class MassSubmissionController extends Controller
         }
 
         try {
-            
-            $csv_file = Storage::disk('local_csvfiles')->get($csv_filepath);
-            $img_file = Storage::disk('local_imgfiles')->get($img_filepath);
-            $validated["csv_filepath"] = $csv_filepath;
-            $validated["img_filepath"] = $img_filepath;
-            $fileName = Str::slug(Carbon::now()->toDayDateTimeString()).\rand(11111, 99999).'.json';
-            Storage::disk('local_tempsubmissions')->put($fileName, json_encode($validated));
-            //ProcessCSVSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], $csv_file, $img_file, pathinfo($csv_filepath,PATHINFO_EXTENSION));
-            /*Storage::disk('local_csvfiles')->delete($csv_filepath);
-            Storage::disk('local_csvfiles')->delete($img_filepath);*/
+            ProcessCSVSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], $csv_filepath, $img_filepath);
         } catch (\Exception $e) {
             $errorId = Str::uuid();
             dd($e);

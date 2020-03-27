@@ -9,7 +9,7 @@ class SubmissionEntrySchedule extends Model
 {
     public static function createSubmissionEntrySchedule($submission_entry_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)
     {
-        if (\is_string($type)) {
+        if (gettype($type) == "string") {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         $submission_entry_schedule                      = new SubmissionEntrySchedule();
@@ -93,7 +93,7 @@ class SubmissionEntrySchedule extends Model
 
     public function updateType($type)
     {
-        if (\is_string($type)) {
+        if (\gettype($type) == "string") {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         $this->type = $type;

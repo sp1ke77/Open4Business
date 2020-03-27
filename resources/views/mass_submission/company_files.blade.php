@@ -132,7 +132,7 @@
     var fileDropZone1 = new Dropzone(".dropzone-logo",{ 
         maxFiles: 1,
         maxFilesize: 500,
-        acceptedFiles: ".jpeg,.jpg,.png,.csv",
+        acceptedFiles: ".jpeg,.jpg,.png",
     });
     fileDropZone1.on("sending", function(file, xhr, formData) {
        formData.append("_token", CSRF_TOKEN);
