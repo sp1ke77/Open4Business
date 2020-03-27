@@ -47,7 +47,9 @@ class ProcessValidatedSubmission implements ShouldQueue
             foreach ($entry->schedules as $schedule) {
                 $entry->business->addSchedule($schedule->start_hour, $schedule->end_hour, $schedule->sunday, $schedule->monday, $schedule->tuesday, $schedule->wednesday, $schedule->thrusday, $schedule->friday, $schedule->saturday, $schedule->type);
             }
-            Storage::disk('public_businesses')->copy($this->submission->image, $entry->business_id.'.'.pathinfo($this->submission->image,PATHINFO_EXTENSION));
+            $img_file = Storage::disk('public_submissions')->get($this->submission->image);
+            $img_file_extension = \pathinfo($this->submission->image, PATHINFO_EXTENSION);
+            Storage::disk('public_businesses')->put($entry->business_id.'.'.$img_file_extension, $img_file); 
         }
     }
 }
