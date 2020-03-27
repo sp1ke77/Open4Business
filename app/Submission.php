@@ -27,6 +27,10 @@ class Submission extends Model
         return $submission;
     }
 
+    public static function open() {
+        return Submission::where('validated','=','0')->orWhere('confirmed','=','0')->get();
+    }
+
     public function entries()
     {
         return $this->hasMany(SubmissionEntry::class);
@@ -45,9 +49,9 @@ class Submission extends Model
         return $image_name;
     }
 
-    public function addEntry($business_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
+    public function addEntry($business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
-        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
+        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
         return $submission_entry;
     }
 

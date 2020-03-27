@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubmitFormRequest extends FormRequest
+class DeleteSubmission extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,10 +14,7 @@ class SubmitFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' => ['required','string'],
-            'lastname' => ['required','string'],
-            'email' => ['required','email'],
-            'contact' => ['required','string']
+            "id" => ['required','exists:submissions']
         ];
     }
 }

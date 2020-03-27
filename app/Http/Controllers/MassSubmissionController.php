@@ -6,18 +6,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SubmitDocumentRequest;
 use App\Http\Requests\SubmitFormRequest;
 use App\Jobs\ProcessCSVSubmission;
-use App\Submission;
 use Carbon\Carbon;
-use Illuminate\Http\FileHelpers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class SubmissionController extends Controller
+class MassSubmissionController extends Controller
 {
     public function index()
     {
-        return view('submission.company_files');
+        return view('mass_submission.company_files');
     }
 
     public function submitDocuments(SubmitDocumentRequest $request)
@@ -30,15 +28,15 @@ class SubmissionController extends Controller
         // Valid extensions
         $validCsvextensions   = ['csv',];
         $validImageextensions = ['jpeg','jpg','png'];
-        $disk       = null;
-        $sessionKey = null;
+        $disk                 = null;
+        $sessionKey           = null;
         // Check extension
         if (\in_array(\mb_strtolower($extension), $validCsvextensions, true)) {
-            $disk = "local_csvfiles";
-            $sessionKey      = 'last_csv_filepath';
+            $disk       = 'local_csvfiles';
+            $sessionKey = 'last_csv_filepath';
         } elseif (\in_array(\mb_strtolower($extension), $validImageextensions, true)) {
-            $disk = "local_imgfiles";
-            $sessionKey      = 'last_img_filepath';
+            $disk       = 'local_imgfiles';
+            $sessionKey = 'last_img_filepath';
         } else {
             //We didn't recognize the extension so we die
             return;
@@ -47,18 +45,20 @@ class SubmissionController extends Controller
 
         $fileName = Str::slug(Carbon::now()->toDayDateTimeString()).\rand(11111, 99999).'.'.$extension;
 
-        $validated['file']->store(
-            $fileName, $disk
+        $validated['file']->storeAs(
+            '',
+            $fileName,
+            $disk
         );
         $request->session()->put($sessionKey, $fileName);
     }
 
     public function submitForm(SubmitFormRequest $request)
     {
-        $validated = $request->validated();
-        $errors    = [];
-        $csv_filepath   = $request->session('last_csv_filepath');
-        $img_filepath   = $request->session('last_img_filepath');
+        $validated    = $request->validated();
+        $errors       = [];
+        $csv_filepath = $request->session()->get('last_csv_filepath');
+        $img_filepath = $request->session()->get('last_img_filepath');
         if ($csv_filepath == null) {
             $errors[] = 'Por favor faça upload de um ficheiro CSV.';
         }
@@ -71,19 +71,16 @@ class SubmissionController extends Controller
         }
 
         try {
-            $csv_file  = Storage::disk('local_csvfiles')->get($csv_filepath);
-            $img_file = Storage::disk('local_imgfiles')->get($img_filepath);
-            ProcessCSVSubmission::dispatch($csv_file,$img_file, FileHelpers::extension($csv_filepath));
-            Storage::disk('local_csvfiles')->delete($csv_filepath);
-            Storage::disk('local_csvfiles')->delete($img_filepath);
+            ProcessCSVSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], $csv_filepath, $img_filepath);
         } catch (\Exception $e) {
             $errorId = Str::uuid();
+            dd($e);
             Log::emergency($errorId.' => '.$e);
             return back()->withErrors([
                 'Ocorreu um erro no formulário. Pedimos que nos envie um e-mail para hello@vost.pt com o ID: '.$errorId,
             ])->withInput();
         }
 
-        return redirect('/submit')->with('success_message', 'Agradecemos a submissão. Esta informação será validada e inserida na plataforma assim que possível.');
+        return redirect()->route('mass_submission.index')->with('success_message', 'Agradecemos a submissão. Esta informação será validada e inserida na plataforma assim que possível.');
     }
 }

@@ -44,8 +44,6 @@
         <h5>Dúvidas?</h5>
         <p>A VOST Portugal disponibiliza um e-mail dedicado para suporte desta plataforma. Pode nos contactar via
             o4bpt@vost.pt</p>
-        <a href="{{url('examples/uploadcsv.png')}}" data-lightbox="image-csvexample" data-title="exemplo csv"><img
-                width="100%" src="{{url('examples/uploadcsv.png')}}"></a>
     </div>
 
     @if ($errors->any())
@@ -68,50 +66,41 @@
 
     <div class="row">
         <div class="col-sm">
-            <form action="{{route('company.infoupload')}}" class='dropzone dropzone-logo'>
+            <form action="{{route('mass_submission.infoupload')}}" class='dropzone dropzone-logo'>
                 @csrf
                 <div class="dz-message" data-dz-message><span>Arraste para aqui o logótipo ou <br>clique para fazer
                         upload</span></div>
             </form>
         </div>
         <div class="col-sm">
-            <form action="{{route('company.infoupload')}}" class='dropzone dropzone-csv'>
+            <form action="{{route('mass_submission.infoupload')}}" class='dropzone dropzone-csv'>
                 <div class="dz-message" data-dz-message><span>Arraste para aqui o CSV ou <br>clique para fazer
                         upload</span></div>
             </form>
         </div>
     </div>
-    <form action="{{route('company.submitform')}}" method="POST">
+    <form action="{{route('mass_submission.submitform')}}" method="POST">
         @csrf
-        <div class="row">
-            <div class="col-sm">
-                <div class="form-group">
-                    <label for="nome">Nome da empresa*: </label><input class="form-control" type="text"
-                        name="nome_empresa" value="{{old('nome_empresa')}}  ">
-                </div>
-            </div>
-        </div>
-
         <h3>Dados do contacto</h3>
         <div class="row">
             <div class="col-sm">
                 <div class="form-group">
-                    <label for="nome">Nome*: </label><input class="form-control" type="text" name="nome"
-                        value="{{old('nome')}}  ">
+                    <label for="firstname">Nome*: </label><input class="form-control" type="text" name="firstname"
+                        value="{{old('firstname')}}  ">
                 </div>
             </div>
             <div class="col-sm">
                 <div class="form-group">
-                    <label for="nome">Apelido*: </label><input class="form-control" type="text" name="apelido"
-                        value="{{old('apelido')}}  ">
+                    <label for="lastname">Apelido*: </label><input class="form-control" type="text" name="lastname"
+                        value="{{old('lastname')}}  ">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <div class="form-group">
-                    <label for="telefone">Telefone*: </label><input class="form-control" type="text" name="telefone"
-                        value="{{old('telefone')}}">
+                    <label for="contact">Telefone*: </label><input class="form-control" type="text" name="contact"
+                        value="{{old('contact')}}">
                 </div>
             </div>
             <div class="col-sm">
@@ -135,7 +124,6 @@
 @section('script')
 <!-- Script -->
 <script>
-
     var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 
     Dropzone.autoDiscover = false;
@@ -144,7 +132,7 @@
     var fileDropZone1 = new Dropzone(".dropzone-logo",{ 
         maxFiles: 1,
         maxFilesize: 500,
-        acceptedFiles: ".jpeg,.jpg,.png,.csv",
+        acceptedFiles: ".jpeg,.jpg,.png",
     });
     fileDropZone1.on("sending", function(file, xhr, formData) {
        formData.append("_token", CSRF_TOKEN);
