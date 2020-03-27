@@ -8,53 +8,59 @@ use Illuminate\Support\Facades\Storage;
 
 class Business extends Model
 {
-    protected $appends = ['image'];
+    protected $appends = ['image','sector_string'];
+
+    private static $sector_strings = [
+        'Minimercados, supermercados, hipermercados',
+        'Frutarias, talhos, peixarias, padarias',
+        'Mercados, para venda de produtos alimentares',
+        'Produção e distribuição agroalimentar',
+        'Lotas',
+        'Restauração e bebidas, apenas para take-away',
+        'Confeção de refeições prontas a levar para casa, apenas take-away',
+        'Serviços médicos ou outros serviços de saúde e apoio social',
+        'Farmácias e Parafarmácias',
+        'Lojas de produtos médicos e ortopédicos',
+        'Oculistas',
+        'Lojas de produtos cosméticos e de higiene',
+        'Lojas de produtos naturais e dietéticos',
+        'Serviços públicos essenciais de água, energia elétrica, gás natural e gases de petróleo liquefeitos canalizados',
+        'Serviços recolha e tratamento de águas residuais, recolha e tratamento de águas residuais e resíduos sólidos urbanos, higiene urbana e serviço de transporte de passageiros',
+        'Serviços de comunicações eletrónicas e correios',
+        'Papelarias, tabacarias e jogos sociais',
+        'Clínicas veterinárias',
+        'Lojas de venda de animais de companhia e respetivos alimentos',
+        'Lojas de venda de flores, plantas, sementes e fertilizantes',
+        'Lojas de lavagem e limpeza a seco de roupa',
+        'Drogarias',
+        'Lojas de bricolage e outros',
+        'Postos de abastecimento de combustível',
+        'Estabelecimentos de venda de combustíveis para uso doméstico;',
+        'Oficinas e venda de peças mecânicas',
+        'Lojas de venda e reparação de eletrodomésticos, equipamento informático e de comunicações e respetiva reparação',
+        'Bancos, Seguros e Serviços Financeiros',
+        'Funerárias',
+        'Serviços de manutenção e reparações, em casa',
+        'Serviços de segurança ou de vigilância, em casa',
+        'Atividades de limpeza, desinfeção, desratização e similares',
+        'Serviços de entrega ao domicílio',
+        'Estabelecimentos turísticos, exceto parques de campismo, apenas com serviço de restaurante e bar para os respectivos hóspedes',
+        'Serviços que garantam alojamento estudantil',
+        'Atividades e estabelecimentos enunciados nos números anteriores, ainda que integrados em centros comerciais',
+    ];
 
     public static function getSectorNumberFromString($sector)
     {
-        $sector_strings = [
-            'Minimercados, supermercados, hipermercados',
-            'Frutarias, talhos, peixarias, padarias',
-            'Mercados, para venda de produtos alimentares',
-            'Produção e distribuição agroalimentar',
-            'Lotas',
-            'Restauração e bebidas, apenas para take-away',
-            'Confeção de refeições prontas a levar para casa, apenas take-away',
-            'Serviços médicos ou outros serviços de saúde e apoio social',
-            'Farmácias e Parafarmácias',
-            'Lojas de produtos médicos e ortopédicos',
-            'Oculistas',
-            'Lojas de produtos cosméticos e de higiene',
-            'Lojas de produtos naturais e dietéticos',
-            'Serviços públicos essenciais de água, energia elétrica, gás natural e gases de petróleo liquefeitos canalizados',
-            'Serviços recolha e tratamento de águas residuais, recolha e tratamento de águas residuais e resíduos sólidos urbanos, higiene urbana e serviço de transporte de passageiros',
-            'Serviços de comunicações eletrónicas e correios',
-            'Papelarias, tabacarias e jogos sociais',
-            'Clínicas veterinárias',
-            'Lojas de venda de animais de companhia e respetivos alimentos',
-            'Lojas de venda de flores, plantas, sementes e fertilizantes',
-            'Lojas de lavagem e limpeza a seco de roupa',
-            'Drogarias',
-            'Lojas de bricolage e outros',
-            'Postos de abastecimento de combustível',
-            'Estabelecimentos de venda de combustíveis para uso doméstico;',
-            'Oficinas e venda de peças mecânicas',
-            'Lojas de venda e reparação de eletrodomésticos, equipamento informático e de comunicações e respetiva reparação',
-            'Bancos, Seguros e Serviços Financeiros',
-            'Funerárias',
-            'Serviços de manutenção e reparações, em casa',
-            'Serviços de segurança ou de vigilância, em casa',
-            'Atividades de limpeza, desinfeção, desratização e similares',
-            'Serviços de entrega ao domicílio',
-            'Estabelecimentos turísticos, exceto parques de campismo, apenas com serviço de restaurante e bar para os respectivos hóspedes',
-            'Serviços que garantam alojamento estudantil',
-            'Atividades e estabelecimentos enunciados nos números anteriores, ainda que integrados em centros comerciais',
-        ];
-        $sector = \array_search($sector, $sector_strings, true);
+        $sector = \array_search($sector, Business::$sector_strings, true);
         if ($sector == -1) {
             $sector = 0;
         }
         return $sector;
+    }
+
+    public static function getSectorStringFromNumber($sector)
+    {
+        return Business::$sector_strings[$sector];
     }
 
     public static function createBusiness($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email)
@@ -103,6 +109,10 @@ class Business extends Model
             }
         }
         return $image_name;
+    }
+
+    public function getSectorStringAttribute() {
+        return Business::getSectorStringFromNumber($this->sector);
     }
 
     public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)

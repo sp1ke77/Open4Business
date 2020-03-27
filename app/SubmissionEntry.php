@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubmissionEntry extends Model
 {
+    protected $appends = ['sector_string'];
+
     public static function createSubmissionEntry($submission_id, $business_id, $company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
         if (\gettype($sector) == 'string') {
@@ -43,6 +45,10 @@ class SubmissionEntry extends Model
     public function schedules()
     {
         return $this->hasMany(SubmissionEntrySchedule::class);
+    }
+
+    public function getSectorStringAttribute() {
+        return Business::getSectorStringFromNumber($this->sector);
     }
 
     public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)

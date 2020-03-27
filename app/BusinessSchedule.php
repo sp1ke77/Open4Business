@@ -9,18 +9,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BusinessSchedule extends Model
 {
     use SoftDeletes;
+
+    protected $appends = ['type_string'];
+
+    private static $type_strings = [
+        'Forças de Segurança, Entidades de Proteção Civil e Profissionais de Saúde',
+        'Idosos / Maiores de 65 anos / Grupo de Risco',
+        'Público Geral',
+    ];
+
     public static function getTypeNumberFromString($type)
     {
-        $type_strings = [
-            'Forças de Segurança, Entidades de Proteção Civil e Profissionais de Saúde',
-            'Idosos / Maiores de 65 anos / Grupo de Risco',
-            'Público Geral',
-        ];
-        $type = \array_search($type, $type_strings, true);
+        $type = \array_search($type, BusinessSchedule::$type_strings, true);
         if($type == -1) {
             $type = 0;
         }
         return $type;
+    }
+
+    public static function getTypeStringFromNumber($type)
+    {
+        return BusinessSchedule::$type_strings[$type];
     }
 
     public static function createSchedule($business_id,$start_hour,$end_hour,$sunday,$monday,$tuesday,$wednesday,$thrusday,$friday,$saturday,$type) {
@@ -45,6 +54,10 @@ class BusinessSchedule extends Model
 
     public function business() {
         return $this->belongsTo(Business::class);
+    }
+
+    public function getTypeStringAttribute() {
+        return BusinessSchedule::getTypeStringFromNumber($this->type);
     }
 
     public function updateStartHour($start_hour)

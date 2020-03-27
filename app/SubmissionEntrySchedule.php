@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubmissionEntrySchedule extends Model
 {
+    protected $appends = ['type_string'];
+
     public static function createSubmissionEntrySchedule($submission_entry_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)
     {
         if (gettype($type) == "string") {
@@ -28,8 +30,12 @@ class SubmissionEntrySchedule extends Model
         return $submission_entry_schedule;
     }
 
-    public function submission_entry() {
-        return $this->belongsTo(SubmissionEntry::class);
+    public function entry() {
+        return $this->belongsTo(SubmissionEntry::class,"submission_entry_id","id");
+    }
+
+    public function getTypeStringAttribute() {
+        return BusinessSchedule::getTypeStringFromNumber($this->type);
     }
 
     public function updateSubmissionEntry($submission_entry_id) {
