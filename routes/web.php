@@ -33,6 +33,7 @@ Route::prefix('mass_submission')->middleware(['auth','bigCompanyUser'])->name('m
 
 Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name('backoffice.')->group(function () {
     Route::get('/', 'HomeController@index')->name('index');
+    Route::post('/password', 'HomeController@updatePassword')->name('password');
     Route::prefix('users')->middleware(['teamUser'])->name('users.')->group(function () {
         Route::get('/', 'UsersController@index')->name('index');
         Route::get('/new', 'UsersController@new')->name('new');
