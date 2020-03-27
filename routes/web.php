@@ -41,4 +41,13 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
         Route::post('/update', 'UsersController@update')->name('update');
         Route::post('/delete', 'UsersController@delete')->name('delete');
     });
+    Route::prefix('submissions')->middleware(['teamUser'])->name('submissions.')->group(function () {
+        Route::get('/', 'SubmissionsController@index')->name('index');
+        Route::get('/entries/{id}', 'SubmissionsController@entries')->name('entries');
+        Route::get('/schedules/{id}', 'SubmissionsController@schedules')->name('schedules');
+        Route::post('/entries/delete', 'SubmissionsController@entries_delete')->name('entries.delete');
+        Route::post('/schedules/delete', 'SubmissionsController@schedules_delete')->name('schedules.delete');
+        Route::post('/validate', 'SubmissionsController@validation')->name('validate');
+        Route::post('/delete', 'SubmissionsController@delete')->name('delete');
+    });
 });

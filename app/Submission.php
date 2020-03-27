@@ -27,6 +27,10 @@ class Submission extends Model
         return $submission;
     }
 
+    public static function open() {
+        return Submission::where('validated','=','0')->orWhere('confirmed','=','0')->get();
+    }
+
     public function entries()
     {
         return $this->hasMany(SubmissionEntry::class);
