@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('backoffice.submissions.index') }}">{{ __('Submissions') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('backoffice.businesses.index') }}">{{ __('Businesses') }}</a>
+                        </li>
                         @endif
                         @endauth
                     </ul>
