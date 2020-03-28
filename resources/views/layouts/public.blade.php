@@ -20,11 +20,7 @@
     <nav class="navbar navbar-expand-md navbar-white bg-white text-uppercase text-secondary">
 
         <div class="container-fluid">
-            <a class="navbar-brand font-weight-bold d-flex align-items-center" rel="home" href="https://covid19estamoson.gov.pt/" title="EstamosON" itemprop="url">
-                <div class="logo-img-container">
-
-                </div>
-
+            <a class="navbar-brand font-weight-bold d-flex align-items-center" rel="home" href="{{ route('home') }}" title="#Open4Business" itemprop="url">
                 <div class="logo-text-container d-none d-md-block">
                     <p><span class="text-primary">#Open</span><span class="text-secondary">4Business</span></p>
                 </div>
@@ -56,21 +52,7 @@
         </small>
     </div>
 
-    <div class="section--primary mb-5">
-        <div class="container">
-            <p class="lead">Informa aqui que a tua empresa e/ou negócio continua aberta e como é que
-                <wbr>
-                podemos usufruir dos produtos e serviços neste período excecional.
-            </p>
-            <div class="button__wrapper">
-                <a href="" class="button button--secondary">Pequenas e médias empresas</a>
-                <a href="" class="button button--secondary">Grandes empresas e cadeias</a>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        @yield('content')
-    </div>
+    @yield('content')
 </main>
 <section class="section--primary section__cta">
     <div class="container">

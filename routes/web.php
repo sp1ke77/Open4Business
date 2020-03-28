@@ -12,9 +12,7 @@ declare(strict_types=1);
 |
 */
 
-Route::get('/', function () {
-    return '';
-});
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 

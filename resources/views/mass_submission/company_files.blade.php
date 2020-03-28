@@ -2,7 +2,7 @@
 @section('title', 'Formulário')
 
 @section('content')
-<div class='content'>
+<div class='container'>
     <div class="open4biz-header">
 
         <div class="row">
