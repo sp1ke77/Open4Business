@@ -20,7 +20,8 @@
     <nav class="navbar navbar-expand-md navbar-white bg-white text-uppercase text-secondary">
 
         <div class="container-fluid">
-            <a class="navbar-brand font-weight-bold d-flex align-items-center" rel="home" href="{{ route('home') }}" title="#Open4Business" itemprop="url">
+            <a class="navbar-brand font-weight-bold d-flex align-items-center" rel="home" href="{{ route('home') }}"
+               title="#Open4Business" itemprop="url">
                 <div class="logo-text-container d-none d-md-block">
                     <p><span class="text-primary">#Open</span><span class="text-secondary">4Business</span></p>
                 </div>
@@ -34,7 +35,8 @@
                             <a href="#" class="nav-link text-secondary">Pesquisa <i class="fas fa-search"></i></a>
                         </li> -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-secondary" id="sidebar-menu">Menu <i class="fas fa-bars"></i></a>
+                            <a href="#" class="nav-link text-secondary" id="sidebar-menu">Menu <i
+                                        class="fas fa-bars"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -42,6 +44,34 @@
 
         </div><!-- .container -->
 
+    </nav>
+
+    <nav class="navbar navbar-expand navbar-dark bg-secondary fixed-right sidebar-menu">
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav text-uppercase">
+                <li class="nav-item" id="close-menu">
+                    <a href="#" class="nav-link">Fechar Menu</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav text-uppercase">
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link">Entrada</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link">Lista de Empresas</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link">Formulário para grandes empresas e cadeias</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link">Sobre</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link">Política de Privacidade e Política de Cookies</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
 <main class="">
