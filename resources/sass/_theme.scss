@@ -1,0 +1,259 @@
+@mixin text ($weight: 400, $size: $font, $lh: 1.4) {
+  font-family: 'Lato', sans-serif;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $lh;
+  text-decoration: none;
+}
+
+@mixin uppercase {
+  text-transform: uppercase;
+  letter-spacing: .04rem;
+}
+
+small {
+  @include text (400, $font-xs);
+}
+
+a {
+  color: $white;
+  text-decoration: none;
+}
+
+.logo, .logo a {
+  @include text (900, $font-l);
+  @include uppercase;
+}
+
+header .logo a {
+  color: $secondary;
+
+  span {
+    color: $primary;
+  }
+}
+
+.main__title {
+  @include text(600, $font-m);
+  color: $dark;
+}
+
+.lead {
+  @include text (200, $font-xl);
+  text-align: center;
+}
+
+// Common section and component styles
+
+* {
+  box-sizing: border-box;
+  transition: all .25s ease-in-out;
+}
+
+html {
+  @include text;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  min-height: 70rem;
+  background-color: $background;
+  position: relative;
+}
+
+.section--primary {
+  background-color: $primary;
+  color: $white;
+  padding: $space-s 0;
+}
+
+.main__alert {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-color: rgba($dark, .7);
+  text-align: center;
+  z-index: 99;
+  padding: $space-s;
+  color: $white;
+
+  a {
+    color: $primary;
+  }
+
+  .icon--close {
+    color: $white;
+    @include text (400, $font-m);
+    margin-left: $space-s;
+    padding: $space-xs;
+  }
+}
+
+hr {
+  border-color: lighten($secondary, 50%);
+  color: transparent;
+}
+
+
+// Buttons
+
+.button__wrapper {
+  text-align: center;
+  padding: $space-xs 0 $space-m;
+}
+
+.button {
+  @include text(400);
+  @include uppercase;
+  text-align: center;
+  padding: $space-s;
+  display: inline-block;
+}
+
+.button--secondary {
+  background-color: $secondary;
+  color: $white;
+  &:hover {
+    background-color: darken($secondary, 15%);
+  }
+
+  +.button {
+    margin-left: $space-m;
+  }
+}
+
+// Forms
+
+form {
+  padding: $space-xl 0;
+  margin: 0 auto;
+}
+
+form fieldset {
+  border: none;
+  @include text(700, $font-l);
+  color: $dark;
+}
+
+form label {
+  @include text(700, $font-m);
+  color: $dark;
+  margin: $space-s 0;
+}
+
+form input {
+  display: block;
+  width: 100%;
+  border: 1px solid lighten($secondary, 15%);
+  padding: $space-s 0;
+  margin: $space-s 0;
+}
+
+.input__file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+
+  + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+  }
+}
+
+// Footer
+
+footer {
+  background-color: $secondary;
+  color: $white;
+  padding: $space-m;
+  position: relative;
+}
+
+.footer__wrapper {
+  padding: $space-s 15rem;
+}
+
+footer .logo {
+  height: $space-xl;
+  margin: $space-s 0;
+}
+
+.footer__title {
+  @include text (700, $font-m);
+  @include uppercase;
+}
+
+.footer__list {
+  dt {
+    @include text (600);
+  }
+  dd {
+    @include text (200, $font-s);
+    margin: 0 0 $space-s 0;
+  }
+}
+
+.footer__list-icons {
+
+  li {
+    display: inline;
+  }
+
+  .icon {
+    width: $space-xl;
+    height: $space-xl;
+  }
+}
+
+.footer__list-icons--small .icon {
+  width: $space-m;
+  height: $space-m;
+}
+
+.footer__legal {
+  text-align: center;
+
+  > * {
+    display: block;
+    padding: $space-xs;
+  }
+
+  small {
+    @include text (200, $font-xs);
+    span {
+      @include uppercase;
+
+    }
+  }
+}
+
+
+// Pages specific styles
+
+.home__main .section--primary {
+  padding: $space-xs 0;
+}
+
+.section__cta__hash {
+  @extend .logo;
+  vertical-align: super;
+}
+.section__cta__info {
+  @include text (700, $font-m);
+}
