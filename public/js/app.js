@@ -41524,6 +41524,22 @@ try {
   __webpack_require__(/*! lightbox2 */ "./node_modules/lightbox2/dist/js/lightbox.js");
 } catch (e) {}
 
+$(document).ready(function () {
+  $("#sidebar-menu, #close-menu").on("click", function () {
+    $("body").toggleClass("sidebar-toggle");
+  });
+  $("#cookie-alert--close").on("click", function () {
+    $("#cookie-alert").slideUp();
+  });
+  $(document).on("click", '.slide-link', function () {
+    var href = $(this).data('href');
+
+    if (href !== "") {
+      location.href = href;
+    }
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/sass/app.scss":

@@ -44,3 +44,10 @@ $font-l: 1.5rem;
 $font-xl: 1.8rem;
 
 $font: $font-s;
+
+$theme-colors: (
+        "primary": $primary,
+        "secondary": $secondary,
+        "green": $primary,
+        "purple": $secondary,
+);
