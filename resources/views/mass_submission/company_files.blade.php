@@ -23,8 +23,8 @@
 
         </div>
 
-        <div class="intro">
-            <p>Obrigado pelo teu interesse em nos ajudar a informar todos os cidadãos, neste período que atravessamos.
+        <div class="mass-submission--intro">
+            {{--<p>Obrigado pelo teu interesse em nos ajudar a informar todos os cidadãos, neste período que atravessamos.
                 <br>
                 Esta área do site destina-se a empresas que tenham mais de 10 estabelecimentos, espalhados por todo o
                 território nacional continental. <br>
@@ -45,7 +45,18 @@
 
             <h5>Dúvidas?</h5>
             <p>A VOST Portugal disponibiliza um e-mail dedicado para suporte desta plataforma. Pode nos contactar via
-                o4bpt@vost.pt</p>
+                o4bpt@vost.pt</p>--}}
+
+            <p>Bem vindo à area de upload de dados em bulk para a plataforma "Open4Business", uma iniciativa da VOST
+                Portugal em parceria com o Governo Português, para melhor informar os cidadãos sobre os estabelecimentos
+                que continuam abertos no nosso país, nesta altura. Aconselhamos a que façam o download do template como
+                base de trabalho para o parse dos dados necessários.</p>
+            <p><strong>Notas importantes:</strong><br>
+                Seguir, estritamente, os formatos indicados de hora, dia da semana, e latitude/longitude.<br>
+                Fazer o upload do ficheiro CSV preenchendo todos os campos do formulário.<br>
+                Obrigado pela sua ajuda nesta iniciativa que tem por objectivo ter uma população mais informada e mais
+                segura.<br><br>
+                <a href="https://bit.ly/VOSTPT_O4B_TEMPLATE" class="btn btn-secondary">Descarregar Template de CSV</a></p>
         </div>
 
         @if ($errors->any())
@@ -68,7 +79,6 @@
 
         <div class="row">
             <div class="col-sm">
-
                 <div class="form-group">
                     <label for="logotipo">Logótipo da empresa (.jpg ou .png)</label>
                 </div>
@@ -91,7 +101,7 @@
         </div>
         <form action="{{route('mass_submission.submitform')}}" method="POST">
             @csrf
-            <h3>Dados do contacto</h3>
+            <h3>Dados de contacto</h3>
             <div class="row">
                 <div class="col-sm">
                     <div class="form-group">
@@ -129,7 +139,10 @@
             <small id="submitHelp" class="form-text text-muted">*Todos os campos deste formulário são de preenchimento
                 obrigatório.</small>
 
-            <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
+            <div class="form-group">
+                <button type="submit" name="submit" class="btn btn-primary btn-lg">Submeter Dados</button>
+
+            </div>
 
     </div>
 @endsection

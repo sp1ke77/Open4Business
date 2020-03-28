@@ -19,11 +19,6 @@ small {
   @include text (400, $font-xs);
 }
 
-a {
-  color: $white;
-  text-decoration: none;
-}
-
 .logo, .logo a {
   @include text (900, $font-l);
   @include uppercase;
@@ -136,30 +131,6 @@ hr {
   }
 }
 
-// Forms
-
-form {
-  padding: $space-xl 0;
-  margin: 0 auto;
-}
-
-.input__file {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-
-  + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
-  }
-}
-
 // Footer
 
 footer {
@@ -240,4 +211,8 @@ footer .logo {
 }
 .section__cta__info {
   @include text (700, $font-m);
+}
+
+.mass-submission--intro {
+  font-size: 16px;
 }
