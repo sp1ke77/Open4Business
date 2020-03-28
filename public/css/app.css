@@ -11888,6 +11888,10 @@ body.sidebar-toggle .navbar.fixed-right {
   padding: 1.5rem 1rem !important;
 }
 
+* {
+  border-radius: 0 !important;
+}
+
 small {
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -12043,34 +12047,6 @@ hr {
 form {
   padding: 4rem 0;
   margin: 0 auto;
-}
-
-form fieldset {
-  border: none;
-  font-family: "Lato", sans-serif;
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.4;
-  text-decoration: none;
-  color: #333;
-}
-
-form label {
-  font-family: "Lato", sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  line-height: 1.4;
-  text-decoration: none;
-  color: #333;
-  margin: 1rem 0;
-}
-
-form input {
-  display: block;
-  width: 100%;
-  border: 1px solid #624fbd;
-  padding: 1rem 0;
-  margin: 1rem 0;
 }
 
 .input__file {

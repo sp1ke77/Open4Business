@@ -84,7 +84,8 @@
                     <label for="logotipo">Ficheiro CSV</label>
                 </div>
                 <form action="{{route('mass_submission.infoupload')}}" class='dropzone dropzone-csv'>
-                    <div class="dz-message" data-dz-message><span>Arraste para aqui <br> ou<br> <button class="btn btn-secondary">Carregar ficheiro</button></span></div>
+                    <div class="dz-message" data-dz-message><span>Arraste para aqui <br> ou<br> <button
+                                    class="btn btn-secondary">Carregar ficheiro</button></span></div>
                 </form>
             </div>
         </div>
@@ -102,21 +103,23 @@
                     <div class="form-group">
                         <label for="lastname">Apelido*: </label>
                         <input class="form-control" type="text" name="lastname"
-                                                                       value="{{old('lastname')}}  ">
+                               value="{{old('lastname')}}  ">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="contact">Telefone*: </label><input class="form-control" type="text" name="contact"
-                                                                       value="{{old('contact')}}">
+                        <label for="contact">Telefone*: </label>
+                        <input class="form-control" type="text" name="contact"
+                               value="{{old('contact')}}">
                     </div>
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="email">Email*: </label><input class="form-control" type="text" name="email"
-                                                                  value="{{old('email')}}">
+                        <label for="email">Email*: </label>
+                        <input class="form-control" type="email" name="email"
+                               value="{{old('email')}}">
                     </div>
                 </div>
             </div>
