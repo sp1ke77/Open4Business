@@ -1,0 +1,36 @@
+.footer {
+  background-color: $secondary;
+  color: $white;
+  padding: $space-m;
+  position: relative;
+
+  a, a:hover, a:focus {
+    color: white;
+    text-decoration: none;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    margin-bottom: $space-m;
+  }
+
+  dl {
+    margin-bottom: $space-m;
+  }
+
+  .cc-img {
+    margin-bottom: $space-m;
+  }
+
+  .footer__list-icons {
+
+    li {
+      display: inline;
+    }
+
+    .icon {
+      width: $space-xl;
+      height: $space-xl;
+    }
+  }
+}

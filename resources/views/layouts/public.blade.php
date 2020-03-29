@@ -74,7 +74,7 @@
         </div>
     </nav>
 </header>
-<main class="">
+<main class="mb-5">
     <div class="main__alert" id="cookie-alert">
         <small class="container">
             Utilizamos cookies para melhorar a experiência de navegação. Sabe mais sobre a nossa política de cookies <a
@@ -84,7 +84,7 @@
 
     @yield('content')
 </main>
-<section class="section--primary section__cta">
+{{--<section class="section--primary section__cta">
     <div class="container">
         <div class="row">
             <div class="col-3 section__cta__hash">
@@ -97,7 +97,109 @@
             </div>
         </div>
     </div>
+</section>--}}
+<section class="footer">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-6">
+                <a href="https://info.vost.pt" target="_blank">
+                    <svg class="icon logo">
+                        <use xlink:href="/img/vost-logo.svg#vost-logo"></use>
+                    </svg>
+                </a>
+                <ul class="footer__list-icons">
+                    <li>
+                        <a href="https://info.vost.pt" target="_blank">
+                            <svg class="icon icon--website">
+                                <use xlink:href="/img/sprite__vost-social.svg#icon-website"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/vostpt" target="_blank">
+                            <svg class="icon icon--twitter">
+                                <use xlink:href="/img/sprite__vost-social.svg#icon-twitter"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <br>
+                    <li>
+                        <a href="https://www.facebook.com/Vostpt/" target="_blank">
+                            <svg class="icon icon--facebook">
+                                <use xlink:href="/img/sprite__vost-social.svg#icon-facebook"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/vostpt/" target="_blank">
+                            <svg class="icon icon--instagram">
+                                <use xlink:href="/img/sprite__vost-social.svg#icon-instagram"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/company/vostpt/" target="_blank">
+                            <svg class="icon icon--linkedin">
+                                <use xlink:href="/img/sprite__vost-social.svg#icon-linkedin"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <h3>Ligações úteis</h3>
+                <dl class="footer__list">
+                    <dt>
+                        <a href="http://covid19estamoson.gov.pt" target="_blank">
+                            covid19estamoson.gov.pt
+                        </a>
+                    </dt>
+                    <dd>
+                        <a href="http://covid19estamoson.gov.pt" target="_blank">
+                            Canal do Governo de Portugal para partilha das Medidas Excecionais relativas à <abbr
+                                    title="Coronavirus disease 2019">COVID-19</abbr>
+                        </a>
+                    </dd>
+                    <dt>
+                        <a href="http://animalar.pt" target="_blank">
+                            animalar.pt
+                        </a>
+                    </dt>
+                    <dd>
+                        <a href="http://animalar.pt" target="_blank">
+                            Site de acesso à informação útil sobre o impacto da <abbr title="Coronavirus disease 2019">COVID-19</abbr>
+                            nos animais de estimação e entidades de acolhimento de animais.
+                        </a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col text-center">
+                <div class="cc-img">
+                    <img src="https://covid19estamoson.gov.pt/wp-content/themes/covid19/img/cc.svg" />
+                </div>
+                <small>
+                    <span>#open4business &mdash; <time datetime="2020">2020</time> <abbr
+                                title="Associação de Voluntários Digitais em Situações de Emergências para Portugal">VOSTPT</abbr></span>
+                    &ndash; Associação de Voluntários Digitais em Situações de Emergências para Portugal. <br>
+                    Este site e seus materiais encontram-se sob uma licença Creative Commons CC BY-NC-SA:
+                    Atribuição-Não-Comercial-CompartilhaIgual
+                </small>
+                <br>
+                <small>
+                    <a href="cookie.html">
+                        Política de Privacidade
+                    </a>
+                    e
+                    <a href="cookie.html">
+                        Política de Cookies
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
 </section>
+
 <script src="{{asset('js/app.js')}}" type="text/javascript"></script>
 <script src="https://kit.fontawesome.com/43bb6c105b.js" crossorigin="anonymous"></script>
 @yield('script')

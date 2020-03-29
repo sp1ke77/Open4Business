@@ -55,8 +55,13 @@
                 Seguir, estritamente, os formatos indicados de hora, dia da semana, e latitude/longitude.<br>
                 Fazer o upload do ficheiro CSV preenchendo todos os campos do formulário.<br>
                 Obrigado pela sua ajuda nesta iniciativa que tem por objectivo ter uma população mais informada e mais
-                segura.<br><br>
-                <a href="https://bit.ly/VOSTPT_O4B_TEMPLATE" class="btn btn-secondary">Descarregar Template de CSV</a></p>
+                segura.</p>
+
+            <div class="text-center mt-5 text-uppercase">
+                <a href="https://bit.ly/VOSTPT_O4B_TEMPLATE" class="btn btn-secondary btn-lg">Descarregar Template de
+                    CSV</a>
+            </div>
+            <hr>
         </div>
 
         @if ($errors->any())
@@ -75,10 +80,14 @@
             </div>
         @endif
 
-        <h3>Dados de empresa</h3>
+        <h3>Preencha os dados da sua Empresa</h3>
 
         <div class="row">
-            <div class="col-sm">
+            <div class="col-12 mb-3">
+                <label for="business_name">Nome da empresa*:</label>
+                <input type="text" class="form-control" name="business_name" id="business_name">
+            </div>
+            <div class="col-12 col-sm-6">
                 <div class="form-group">
                     <label for="logotipo">Logótipo da empresa (.jpg ou .png)</label>
                 </div>
@@ -89,7 +98,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-sm">
+            <div class="col-12 col-sm-6">
                 <div class="form-group">
                     <label for="logotipo">Ficheiro CSV</label>
                 </div>
@@ -139,9 +148,8 @@
             <small id="submitHelp" class="form-text text-muted">*Todos os campos deste formulário são de preenchimento
                 obrigatório.</small>
 
-            <div class="form-group">
-                <button type="submit" name="submit" class="btn btn-primary btn-lg">Submeter Dados</button>
-
+            <div class="form-group text-center">
+                <button type="submit" name="submit" class="btn btn-secondary btn-lg">Submeter Dados</button>
             </div>
 
     </div>
