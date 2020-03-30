@@ -55,6 +55,7 @@
                     </form>
                     @if ($user != null)
                     <form method="POST" action="{{route('backoffice.users.delete')}}">
+                        @csrf
                         <input id="user_id" name="id" type="hidden" value="{{$user->id}}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
