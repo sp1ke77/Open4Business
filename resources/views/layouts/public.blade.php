@@ -176,14 +176,14 @@
             </div>
             <div class="col text-center">
                 <div class="cc-img">
-                    <img src="https://covid19estamoson.gov.pt/wp-content/themes/covid19/img/cc.svg" />
+                    <img src="/img/cc.svg" />
                 </div>
                 <small>
                     <span>#open4business &mdash; <time datetime="2020">2020</time> <abbr
                                 title="Associação de Voluntários Digitais em Situações de Emergências para Portugal">VOSTPT</abbr></span>
                     &ndash; Associação de Voluntários Digitais em Situações de Emergências para Portugal. <br>
-                    Este site e seus materiais encontram-se sob uma licença Creative Commons CC BY-NC-SA:
-                    Atribuição-Não-Comercial-CompartilhaIgual
+                    Este site e os seus conteúdos encontram-se sob uma licença Creative Commons CC-BY-SA 4.0 -
+                    Attribution-ShareAlike 4.0 International
                 </small>
                 <br>
                 <small>
