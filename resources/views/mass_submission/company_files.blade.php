@@ -5,24 +5,6 @@
     <div class='container'>
         <div class="open4biz-header">
 
-            <div class="row">
-                <div class="col-sm">
-                    <img
-                            src="https://info.vost.pt/wp-content/uploads/2019/08/cropped-TEMPWEBSITE_ELEMENTS_VOSTPTLOGO_w160px-1.png">
-                </div>
-                <div class="col-sm header-title">
-                    <h1>Open4Business</h1>
-                </div>
-                <div class="col-sm">
-                    &nbsp;
-                </div>
-                <div class="col-sm">
-                    &nbsp;
-                </div>
-            </div>
-
-        </div>
-
         <div class="mass-submission--intro">
             {{--<p>Obrigado pelo teu interesse em nos ajudar a informar todos os cidadãos, neste período que atravessamos.
                 <br>
@@ -58,7 +40,7 @@
                 segura.</p>
 
             <div class="text-center mt-5 text-uppercase">
-                <a href="https://bit.ly/VOSTPT_O4B_TEMPLATE" class="btn btn-secondary btn-lg">Descarregar Template de
+                <a href="https://bit.ly/VOSTPT_O4B_Sample" class="btn btn-secondary btn-lg">Descarregar Template de
                     CSV</a>
             </div>
             <hr>
