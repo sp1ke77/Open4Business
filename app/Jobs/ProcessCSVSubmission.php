@@ -26,6 +26,8 @@ class ProcessCSVSubmission implements ShouldQueue
 
     private $img_filepath;
 
+    private $delimiter;
+
     /**
      * Create a new job instance.
      *
@@ -39,6 +41,11 @@ class ProcessCSVSubmission implements ShouldQueue
         $this->email        = $email;
         $this->csv_filepath = $csv_filepath;
         $this->img_filepath = $img_filepath;
+        $this->delimiter    = ',';
+        $line               = \fgets(\fopen($csv_filepath, 'r'));
+        if(substr_count($line,";") > substr_count($line,",")) {
+            $this->delimiter    = ';';
+        }
     }
 
     private function removeAccents($string)
@@ -68,7 +75,7 @@ class ProcessCSVSubmission implements ShouldQueue
         $entries  = [];
         $data     = \str_getcsv($csv_file, "\n");
         foreach ($data as &$row) {
-            $row = \str_getcsv($row);
+            $row = \str_getcsv($row, $this->delimiter);
             if (\mb_strpos(\mb_strtolower($row[0]), 'our') !== false) {
                 continue;
             }
