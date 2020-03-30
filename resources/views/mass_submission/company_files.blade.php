@@ -76,7 +76,7 @@
                 <form action="{{route('mass_submission.infoupload')}}" class='dropzone dropzone-logo'>
                     @csrf
                     <div class="dz-message" data-dz-message>
-                        <span>Arraste para aqui <br> ou<br> <button class="btn btn-secondary">Carregar ficheiro</button></span>
+                        <span>Arraste para aqui <br> ou<br> <div class="btn btn-secondary">Carregar ficheiro</div></span>
                     </div>
                 </form>
             </div>
@@ -85,8 +85,8 @@
                     <label for="logotipo">Ficheiro CSV</label>
                 </div>
                 <form action="{{route('mass_submission.infoupload')}}" class='dropzone dropzone-csv'>
-                    <div class="dz-message" data-dz-message><span>Arraste para aqui <br> ou<br> <button
-                                    class="btn btn-secondary">Carregar ficheiro</button></span></div>
+                    <div class="dz-message" data-dz-message><span>Arraste para aqui <br> ou<br> <div
+                                    class="btn btn-secondary">Carregar ficheiro</div></span></div>
                 </form>
             </div>
         </div>
