@@ -10,12 +10,18 @@ class BusinessSchedule extends Model
 {
     use SoftDeletes;
 
-    protected $appends = ['type_string'];
+    protected $appends = ['type_string','section_of_day_string'];
 
     private static $type_strings = [
         'Forças de Segurança, Entidades de Proteção Civil e Profissionais de Saúde',
         'Idosos / Maiores de 65 anos / Grupo de Risco',
         'Público Geral',
+    ];
+
+    private static $section_of_day_strings = [
+        'Manhã',
+        'Tarde',
+        'Dia Completo',
     ];
 
     public static function getTypeNumberFromString($type)
@@ -27,12 +33,26 @@ class BusinessSchedule extends Model
         return $type;
     }
 
+    public static function getSectionOfDayNumberFromString($section_of_day)
+    {
+        $section_of_day = \array_search($section_of_day, BusinessSchedule::$section_of_day_strings, true);
+        if($section_of_day == -1) {
+            $section_of_day = 0;
+        }
+        return $section_of_day;
+    }
+
     public static function getTypeStringFromNumber($type)
     {
         return BusinessSchedule::$type_strings[$type];
     }
 
-    public static function createSchedule($business_id,$start_hour,$end_hour,$sunday,$monday,$tuesday,$wednesday,$thrusday,$friday,$saturday,$type) {
+    public static function getSectionOfDayStringFromNumber($section_of_day)
+    {
+        return BusinessSchedule::$section_of_day_strings[$section_of_day];
+    }
+
+    public static function createSchedule($business_id,$start_hour,$end_hour,$sunday,$monday,$tuesday,$wednesday,$thrusday,$friday,$saturday,$type,$section_of_day) {
         if (\gettype($type) == "string") {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
@@ -48,6 +68,7 @@ class BusinessSchedule extends Model
         $business_schedule->friday = $friday;
         $business_schedule->saturday = $saturday;
         $business_schedule->type = $type;
+        $business_schedule->section_of_day = $section_of_day;
         $business_schedule->save();
         return $business_schedule;
     }
@@ -58,6 +79,10 @@ class BusinessSchedule extends Model
 
     public function getTypeStringAttribute() {
         return BusinessSchedule::getTypeStringFromNumber($this->type);
+    }
+
+    public function getSectionOfDayStringAttribute() {
+        return BusinessSchedule::getSectionOfDayStringFromNumber($this->section_of_day);
     }
 
     public function updateStartHour($start_hour)
@@ -120,6 +145,15 @@ class BusinessSchedule extends Model
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         $this->type = $type;
+        $this->save();
+    }
+
+    public function updateSectionOfDay($section_of_day)
+    {
+        if (\gettype($section_of_day) == 'string') {
+            $section_of_day = BusinessSchedule::getSectionOfDayStringFromNumber($section_of_day);
+        }
+        $this->section_of_day = $section_of_day;
         $this->save();
     }
 }

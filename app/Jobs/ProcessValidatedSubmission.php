@@ -45,7 +45,7 @@ class ProcessValidatedSubmission implements ShouldQueue
                 $entry->business->updateStoreInformation($entry->company,$entry->store_name, $entry->address, $entry->parish, $entry->county, $entry->district, $entry->postal_code, $entry->lat, $entry->long, $entry->phone_number, $entry->sector);
             }
             foreach ($entry->schedules as $schedule) {
-                $entry->business->addSchedule($schedule->start_hour, $schedule->end_hour, $schedule->sunday, $schedule->monday, $schedule->tuesday, $schedule->wednesday, $schedule->thrusday, $schedule->friday, $schedule->saturday, $schedule->type);
+                $entry->business->addSchedule($schedule->start_hour, $schedule->end_hour, $schedule->sunday, $schedule->monday, $schedule->tuesday, $schedule->wednesday, $schedule->thrusday, $schedule->friday, $schedule->saturday, $schedule->type, $schedule->section_of_day);
             }
             $img_file = Storage::disk('public_submissions')->get($this->submission->image);
             $img_file_extension = \pathinfo($this->submission->image, PATHINFO_EXTENSION);
