@@ -73,11 +73,16 @@ class MassSubmissionController extends Controller
         try {
             ProcessCSVSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], $csv_filepath, $img_filepath);
         } catch (\Exception $e) {
+            if($e->getMessage() == "VOSTPT_INVALID_CSV") {
+                return back()->withErrors([
+                    "Não foi possível validar o seu formulário. Verifique que o ficheiro obedece a todas as instruções de formatação indicadas. Se pensa tratar-se de um erro contacte-nos pelo e-mail o4b@vost.pt",
+                ])->withInput();
+            }
             $errorId = Str::uuid();
             dd($e);
             Log::emergency($errorId.' => '.$e);
             return back()->withErrors([
-                'Ocorreu um erro no formulário. Pedimos que nos envie um e-mail para hello@vost.pt com o ID: '.$errorId,
+                'Ocorreu um erro no formulário. Pedimos que nos envie um e-mail para o4b@vost.pt com o ID: '.$errorId,
             ])->withInput();
         }
 

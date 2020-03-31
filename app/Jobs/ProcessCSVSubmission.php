@@ -42,9 +42,17 @@ class ProcessCSVSubmission implements ShouldQueue
         $this->csv_filepath = $csv_filepath;
         $this->img_filepath = $img_filepath;
         $this->delimiter    = ',';
-        $line               = \fgets(\fopen($csv_filepath, 'r'));
+        $csv_file = Storage::disk('local_csvfiles')->get($this->csv_filepath);
+        $lines = explode("\n",$csv_file);
+        $line               = $lines[0];
         if(substr_count($line,";") > substr_count($line,",")) {
             $this->delimiter    = ';';
+        }
+        $line = mb_strtolower($line);
+        $validation_data = str_getcsv($line, $this->delimiter);
+        if($validation_data[0] != "our id" || $validation_data[1] != "empresa") {
+            $this->delete();
+            throw new \Exception("VOSTPT_INVALID_CSV");
         }
     }
 
