@@ -43,6 +43,7 @@ class User extends Authenticatable
         $user->email = $email;
         $user->password = Hash::make($password);
         $user->type = $type;
+        $user->validation_token = Str::random();
         $user->save();
         return $user;
     }
@@ -101,5 +102,11 @@ class User extends Authenticatable
         $this->type = 1;
         $this->save();
         $this->generateAPIKeyAndAPISecret();
+    }
+
+    public function validate($password) {
+        $this->password = Hash::make($password);
+        $this->validation_token = null;
+        $this->save();
     }
 }

@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'o4b@vost.pt'),
+        'name' => env('MAIL_FROM_NAME', 'Open4Business - VOST Portugal'),
     ],
 
     /*
