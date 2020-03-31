@@ -23,6 +23,9 @@ Auth::routes([
     'reset' => false
 ]);
 
+Route::get('/validate_token/{validation_token}', 'UsersController@validate_token');
+Route::post('/validate_token', 'UsersController@validate_token')->name('validate_token');
+
 Route::prefix('mass_submission')->middleware(['auth'])->name('mass_submission.')->group(function () {
     Route::get('/', 'MassSubmissionController@index')->name('index');
     Route::post('/documents', 'MassSubmissionController@submitDocuments')->name('infoupload');

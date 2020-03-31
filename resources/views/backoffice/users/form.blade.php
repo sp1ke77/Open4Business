@@ -38,11 +38,13 @@
                             <input type="email" class="form-control" id="user_email" name="email"
                                 value="{{$user == null ? "":$user->email}}">
                         </div>
-                        <div class="form-group">
+                        @if ($user != null)
+                        <div class="form-group" >
                             <label for="user_password">Password</label>
                             <input type="password" class="form-control" id="user_password" name="password" value=""
                                 placeholder="Leave empty to keep the same password">
                         </div>
+                        @endif
                         <div class="form-group">
                             <label for="user_type">Type</label>
                             <select class="form-control" id="user_type" name="type"
