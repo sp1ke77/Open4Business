@@ -53,6 +53,7 @@ class ProcessMassSubmission implements ShouldQueue
          * - start_hour
          * - end_hour
          * - type
+         * - section_of_day
          * - sunday
          * - monday
          * - tuesday

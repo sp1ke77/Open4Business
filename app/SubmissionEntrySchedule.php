@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubmissionEntrySchedule extends Model
 {
-    protected $appends = ['type_string'];
+    protected $appends = ['type_string','section_of_day_string'];
 
-    public static function createSubmissionEntrySchedule($submission_entry_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type)
+    public static function createSubmissionEntrySchedule($submission_entry_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day)
     {
-        if (gettype($type) == "string") {
+        if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
+        }
+        if (\gettype($section_of_day) == 'string') {
+            $section_of_day = BusinessSchedule::getSectionOfDayStringFromNumber($section_of_day);
         }
         $submission_entry_schedule                      = new SubmissionEntrySchedule();
         $submission_entry_schedule->submission_entry_id = $submission_entry_id;
@@ -26,19 +29,29 @@ class SubmissionEntrySchedule extends Model
         $submission_entry_schedule->friday              = $friday;
         $submission_entry_schedule->saturday            = $saturday;
         $submission_entry_schedule->type                = $type;
+        $submission_entry_schedule->section_of_day      = $section_of_day;
         $submission_entry_schedule->save();
         return $submission_entry_schedule;
     }
 
-    public function entry() {
-        return $this->belongsTo(SubmissionEntry::class,"submission_entry_id","id");
+    public function entry()
+    {
+        return $this->belongsTo(SubmissionEntry::class, 'submission_entry_id', 'id');
     }
 
-    public function getTypeStringAttribute() {
+    public function getTypeStringAttribute()
+    {
         return BusinessSchedule::getTypeStringFromNumber($this->type);
     }
 
-    public function updateSubmissionEntry($submission_entry_id) {
+    public function getSectionOfDayStringAttribute()
+    {
+        return BusinessSchedule::getSectionOfDayStringFromNumber($this->section_of_day);
+    }
+
+
+    public function updateSubmissionEntry($submission_entry_id)
+    {
         $this->submission_entry_id = $submission_entry_id;
         $this->save();
     }
@@ -99,10 +112,19 @@ class SubmissionEntrySchedule extends Model
 
     public function updateType($type)
     {
-        if (\gettype($type) == "string") {
+        if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         $this->type = $type;
+        $this->save();
+    }
+
+    public function updateSectionOfDay($section_of_day)
+    {
+        if (\gettype($section_of_day) == 'string') {
+            $section_of_day = BusinessSchedule::getSectionOfDayStringFromNumber($section_of_day);
+        }
+        $this->section_of_day = $section_of_day;
         $this->save();
     }
 }

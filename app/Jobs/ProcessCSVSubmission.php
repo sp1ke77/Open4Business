@@ -42,17 +42,17 @@ class ProcessCSVSubmission implements ShouldQueue
         $this->csv_filepath = $csv_filepath;
         $this->img_filepath = $img_filepath;
         $this->delimiter    = ',';
-        $csv_file = Storage::disk('local_csvfiles')->get($this->csv_filepath);
-        $lines = explode("\n",$csv_file);
+        $csv_file           = Storage::disk('local_csvfiles')->get($this->csv_filepath);
+        $lines              = \explode("\n", $csv_file);
         $line               = $lines[0];
-        if(substr_count($line,";") > substr_count($line,",")) {
-            $this->delimiter    = ';';
+        if (\mb_substr_count($line, ';') > \mb_substr_count($line, ',')) {
+            $this->delimiter = ';';
         }
-        $line = mb_strtolower($line);
-        $validation_data = str_getcsv($line, $this->delimiter);
-        if($validation_data[0] != "our id" || $validation_data[1] != "empresa") {
+        $line            = \mb_strtolower($line);
+        $validation_data = \str_getcsv($line, $this->delimiter);
+        if ($validation_data[0] != 'our id' || $validation_data[1] != 'empresa') {
             $this->delete();
-            throw new \Exception("VOSTPT_INVALID_CSV");
+            throw new \Exception('VOSTPT_INVALID_CSV');
         }
     }
 
@@ -87,32 +87,34 @@ class ProcessCSVSubmission implements ShouldQueue
             if (\mb_strpos(\mb_strtolower($row[0]), 'our') !== false) {
                 continue;
             }
-            $num_of_schedules     = (\count($row) - 12) / 3;
+            $num_of_schedules     = (\count($row) - 12) / 4;
             $current_schedule_num = 12;
             $schedules            = [];
             for ($i = 0; $i < $num_of_schedules; $i++) {
-                if ($row[$current_schedule_num] == '' || $row[$current_schedule_num + 1] == '' || $row[$current_schedule_num + 2] == '') {
+                if ($row[$current_schedule_num] == '' || $row[$current_schedule_num + 1] == '' || $row[$current_schedule_num + 2] == '' || $row[$current_schedule_num + 3] == '') {
                     continue;
                 }
-                $hours       = $row[$current_schedule_num];
-                $hours       = \explode('-', $hours);
-                $weekdays    = $row[$current_schedule_num + 1];
-                $weekdays    = $this->removeAccents($weekdays);
-                $weekdays    = \mb_strtolower($weekdays);
-                $type        = $row[$current_schedule_num + 2];
-                $schedules[] = [
-                    'start_hour' => $hours[0],
-                    'end_hour'   => $hours[1],
-                    'type'       => $type,
-                    'sunday'     => \mb_strpos($weekdays, 'domingo') !== false,
-                    'monday'     => \mb_strpos($weekdays, 'segunda') !== false,
-                    'tuesday'    => \mb_strpos($weekdays, 'terca') !== false,
-                    'wednesday'  => \mb_strpos($weekdays, 'quarta') !== false,
-                    'thrusday'   => \mb_strpos($weekdays, 'quinta') !== false,
-                    'friday'     => \mb_strpos($weekdays, 'sexta') !== false,
-                    'saturday'   => \mb_strpos($weekdays, 'sabado') !== false,
+                $hours          = $row[$current_schedule_num];
+                $hours          = \explode('-', $hours);
+                $weekdays       = $row[$current_schedule_num + 1];
+                $weekdays       = $this->removeAccents($weekdays);
+                $weekdays       = \mb_strtolower($weekdays);
+                $type           = $row[$current_schedule_num + 2];
+                $section_of_day = $row[$current_schedule_num + 3];
+                $schedules[]    = [
+                    'start_hour'     => $hours[0],
+                    'end_hour'       => $hours[1],
+                    'type'           => $type,
+                    'section_of_day' => $section_of_day,
+                    'sunday'         => \mb_strpos($weekdays, 'domingo') !== false,
+                    'monday'         => \mb_strpos($weekdays, 'segunda') !== false,
+                    'tuesday'        => \mb_strpos($weekdays, 'terca') !== false,
+                    'wednesday'      => \mb_strpos($weekdays, 'quarta') !== false,
+                    'thrusday'       => \mb_strpos($weekdays, 'quinta') !== false,
+                    'friday'         => \mb_strpos($weekdays, 'sexta') !== false,
+                    'saturday'       => \mb_strpos($weekdays, 'sabado') !== false,
                 ];
-                $current_schedule_num = $current_schedule_num + 3;
+                $current_schedule_num = $current_schedule_num + 4;
             }
 
             $entries[] = [
