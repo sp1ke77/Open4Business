@@ -12,6 +12,7 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url('css/website.css') }}">
+    @yield('styles')
     <!-- JS -->
 </head>
 
@@ -74,14 +75,13 @@
         </div>
     </nav>
 </header>
-<main class="mb-5">
+<main>
     <div class="main__alert" id="cookie-alert">
         <small class="container">
             Utilizamos cookies para melhorar a experiência de navegação. Sabe mais sobre a nossa política de cookies <a
                     href="#">aqui</a>. <a href="#" class="icon icon--close" id="cookie-alert--close">&times;</a>
         </small>
     </div>
-
     @yield('content')
 </main>
 {{--<section class="section--primary section__cta">
