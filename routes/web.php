@@ -18,13 +18,13 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 
 
 Auth::routes([
-    'verify' => false,
+    'verify'   => false,
     'register' => false,
-    'reset' => false
+    'reset'    => false,
 ]);
 
-Route::get('/validate_token/{validation_token}', 'UsersController@validate_token');
-Route::post('/validate_token', 'UsersController@validate_token')->name('validate_token');
+Route::get('/validate_token/{validation_token}', 'Backoffice\UsersController@validate_token');
+Route::post('/validate_token', 'Backoffice\UsersController@validation')->name('validate_token');
 
 Route::prefix('mass_submission')->middleware(['auth'])->name('mass_submission.')->group(function () {
     Route::get('/', 'MassSubmissionController@index')->name('index');

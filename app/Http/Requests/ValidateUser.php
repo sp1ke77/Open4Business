@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
@@ -14,8 +15,8 @@ class ValidateUser extends FormRequest
     public function rules()
     {
         return [
-            "validate_token" => ['required', 'string', 'exists:users,validation_token'],
-            "password" => ['required','string','min:6'],
+            'validation_token' => ['required', 'string', 'exists:users,validation_token'],
+            'password'         => ['required', 'string', 'min:6'],
         ];
     }
 }

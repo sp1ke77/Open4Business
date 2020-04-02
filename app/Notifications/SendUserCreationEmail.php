@@ -12,17 +12,15 @@ class SendUserCreationEmail extends Notification
     use Queueable;
 
     private $user;
-    private $password;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user,$password)
+    public function __construct($user)
     {
         $this->user = $user;
-        $this->password = $password;
     }
 
     /**
@@ -45,10 +43,11 @@ class SendUserCreationEmail extends Notification
     public function toMail($notifiable)
     {
         $url = url('/validate_token/'.$this->user->validation_token);
-        return (new MailMessage)->greeting('Olá!')
-        ->line('Criamos uma conta para ti!')
-        ->line('Email: '. $this->user->email)
+        return (new MailMessage)
+        ->subject('Open4Business - Criação de nova conta')
+        ->greeting('Olá! Criámos uma conta para ti!')
+        ->line('Email: '.$this->user->email)
         ->action('Valida a tua conta!', $url)
-        ->line('Até já!');
+        ->salutation('Até já!');
     }
 }
