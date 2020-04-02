@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ConfirmSubmission;
 use App\Http\Requests\SubmitSingleSubmission;
 use App\Jobs\ProcessSingleSubmission;
+use App\Submission;
 use Illuminate\Support\Facades\Auth;
 
 class SingleSubmissionController extends Controller
@@ -17,10 +19,10 @@ class SingleSubmissionController extends Controller
     public function submit(SubmitSingleSubmission $request)
     {
         $validated = $request->validated();
-        $user_id = null;
-        $user = Auth::user();
-        if($user) {
-            if($user->isBigCompanyUser()) {
+        $user_id   = null;
+        $user      = Auth::user();
+        if ($user) {
+            if ($user->isBigCompanyUser()) {
                 $user_id = $user->id;
             }
         }
@@ -74,5 +76,18 @@ class SingleSubmissionController extends Controller
         //Create Job
         ProcessSingleSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], null, $validated['company'], $validated['store_name'], $validated['address'], $validated['parish'], $validated['county'], $validated['district'], $validated['postal_code'], $validated['lat'], $validated['long'], $validated['phone_number'], $validated['sector'], $schedules, $user_id);
         return redirect()->route('single_submission.index');
+    }
+
+    public function validate_token($validation_token)
+    {
+        return view('single_submission.validate_token', ['validation_token' => $validation_token]);
+    }
+
+    public function validation(ConfirmSubmission $request)
+    {
+        $validated  = $request->validated();
+        $submission = Submission::where('validation_token', $validated['validation_token'])->get()->first();
+        $submission->confirm();
+        return redirect()->route('home');
     }
 }

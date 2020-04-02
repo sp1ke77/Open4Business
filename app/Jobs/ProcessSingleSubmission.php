@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Business;
+use App\Notifications\SendSubmissionConfirmationEmail;
 use App\Submission;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -90,6 +91,7 @@ class ProcessSingleSubmission implements ShouldQueue
     {       
         if ($this->submission == null) {
             $this->submission = Submission::createSubmission($this->firstname, $this->lastname, $this->contact, $this->email);
+            $this->submission->notify(new SendSubmissionConfirmationEmail($this->submission));
             if ($this->img_file != null) {
                 Storage::disk('public_submission')->put($this->submission->id.'.'.$this->img_file_extension, $this->img_file);
             }

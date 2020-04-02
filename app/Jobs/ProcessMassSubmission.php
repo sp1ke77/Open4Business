@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use App\Notifications\SendSubmissionConfirmationEmail;
 use App\Submission;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -83,6 +84,7 @@ class ProcessMassSubmission implements ShouldQueue
         $img_file           = Storage::disk('local_imgfiles')->get($this->img_filepath);
         $img_file_extension = \pathinfo($this->img_filepath, PATHINFO_EXTENSION);
         $submission         = Submission::createSubmission($this->firstname, $this->lastname, $this->contact, $this->email, $this->user_id);
+        $submission->notify(new SendSubmissionConfirmationEmail($submission));
         Storage::disk('public_submissions')->put($submission->id.'.'.$img_file_extension, $img_file);
         Storage::disk('local_imgfiles')->delete($this->img_filepath);
         foreach ($this->entries as $entry) {
