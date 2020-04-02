@@ -6,10 +6,13 @@ namespace App;
 use App\Jobs\ProcessValidatedSubmission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class Submission extends Model
 {
+    use Notifiable;
     use SoftDeletes;
 
     protected $appends = ['image'];
@@ -24,6 +27,7 @@ class Submission extends Model
         $submission->user_id   = $user_id;
         $submission->confirmed = false;
         $submission->validated = false;
+        $submission->validation_token = Str::random();
         $submission->save();
         return $submission;
     }
@@ -89,6 +93,7 @@ class Submission extends Model
     {
         if (! $this->confirmed) {
             $this->confirmed = true;
+            $this->validation_token = null;
             $this->save();
             if ($this->validated) {
                 ProcessValidatedSubmission::dispatch($this);
