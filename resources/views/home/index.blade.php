@@ -9,10 +9,11 @@
     }
 
     .marker {
-        background-image: url('img/pin.png');
+        background-image: url('/img/pin.png');
         background-size: cover;
-        width: 41px;
-        height: 51px;
+        width: 42px;
+        height: 52px;
+        top: -25px;
         cursor: pointer;
         transition: none;
     }
@@ -63,7 +64,7 @@
                 podemos usufruir dos produtos e serviços neste período excecional.
         </p>
             <div class="button__wrapper">
-                <a href="" class="button button--secondary">Pequenas e médias empresas</a>
+                <a href="{{ route('single_submission.index') }}" class="button button--secondary">Pequenas e médias empresas</a>
                 <a href="{{ route('mass_submission.index') }}" class="button button--secondary">Grandes empresas e
                     cadeias</a>
             </div>

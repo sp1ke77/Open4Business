@@ -41,12 +41,13 @@ class ProcessSingleSubmission implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($firstname,$lastname,$contact,$email, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $schedules, $img_file, $img_file_extension, $submission = null, $auto_validation = false)
+    public function __construct($firstname,$lastname,$contact,$email, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $schedules, $img_file = null, $img_file_extension = null, $submission = null, $auto_validation = false)
     {
         /** SCHEDULES
          * - start_hour
          * - end_hour
          * - type
+         * - section_of_day
          * - sunday
          * - monday
          * - tuesday
@@ -87,7 +88,9 @@ class ProcessSingleSubmission implements ShouldQueue
     {       
         if ($this->submission == null) {
             $this->submission = Submission::createSubmission($this->firstname, $this->lastname, $this->contact, $this->email);
-            Storage::disk('public_submission')->put($this->submission->id.'.'.$this->img_file_extension, $this->img_file);
+            if ($this->img_file != null) {
+                Storage::disk('public_submission')->put($this->submission->id.'.'.$this->img_file_extension, $this->img_file);
+            }
         }
 
         if ($this->business_id == null) {

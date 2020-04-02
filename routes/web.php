@@ -18,10 +18,15 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 
 
 Auth::routes([
-    'verify' => false,
+    'verify'   => false,
     'register' => false,
-    'reset' => false
+    'reset'    => false,
 ]);
+
+Route::prefix('single_submission')->name('single_submission.')->group(function () {
+    Route::get('/', 'SingleSubmissionController@index')->name('index');
+    Route::post('/submit', 'SingleSubmissionController@submit')->name('submit');
+});
 
 Route::prefix('mass_submission')->middleware(['auth'])->name('mass_submission.')->group(function () {
     Route::get('/', 'MassSubmissionController@index')->name('index');
