@@ -55,6 +55,8 @@ class ProcessSingleSubmission implements ShouldQueue
          * - thrusday
          * - friday
          * - saturday
+         * - by_appointment
+         * - by_appointment_contacts
          */        
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -102,7 +104,7 @@ class ProcessSingleSubmission implements ShouldQueue
 
         $entry = $this->submission->addEntry($this->business_id,$this->company, $this->store_name, $this->address, $this->parish, $this->county, $this->district, $this->postal_code, $this->lat, $this->long, $this->phone_number, $this->sector);
         foreach ($this->schedules as $schedule) {
-            $entry->addSchedule($schedule['start_hour'],$schedule['end_hour'],$schedule['sunday'],$schedule['monday'],$schedule['tuesday'],$schedule['wednesday'],$schedule['thrusday'],$schedule['friday'],$schedule['saturday'],$schedule['type'],$schedule['section_of_day']);
+            $entry->addSchedule($schedule['start_hour'],$schedule['end_hour'],$schedule['sunday'],$schedule['monday'],$schedule['tuesday'],$schedule['wednesday'],$schedule['thrusday'],$schedule['friday'],$schedule['saturday'],$schedule['type'],$schedule['section_of_day'],$schedule['by_appointment'],$schedule["by_appointment_contacts"]);
         }
         if($this->auto_validation) {
             $this->submission->validate();

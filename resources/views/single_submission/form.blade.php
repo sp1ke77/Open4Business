@@ -186,9 +186,23 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" onclick="scheduleByAppointment(this)" name="by_appointment[]">
+                    <label class="form-check-label">
+                        Por Marcação
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-9 by_appointment_contacts" style="display:none;">
+                <label>Contactos Para Marcações</label>
+                <input type="text" class="form-control" name="by_appointment_contacts[]">
+            </div>
+        </div>
+        <div class="row">
             <div class="form-group col-9">
                 <label>Dias (Pode Selecionar Múltiplos)</label>
-                <select multiple class="form-control" name="days[]" required>
+                <select multiple class="form-control" name="days[]">
                     <option value="monday">Segunda-Feira</option>
                     <option value="tuesday">Terça-Feira</option>
                     <option value="wednesday">Quarta-Feira</option>
@@ -199,7 +213,7 @@
                 </select>
                 <input type="hidden" name="days[]" value="seperator">
             </div>
-            <div class="form-group col-3" style="margin-top: 5.25%">
+            <div class="form-group col-3" style="margin-top: 5.25%;">
                 <a href="#0" class="btn btn-danger" onclick="removeSchedule(this)">Remover Este Horário</a>
             </div>
         </div>
@@ -248,6 +262,16 @@
     function addSchedule() {
         let template = $("#schedule_template").html();
         $("#schedules").append(template);
+    }
+
+    function scheduleByAppointment(obj) {
+        if($(obj).is(":checked")) {
+            $(obj).closest(".schedule").find(".by_appointment_contacts").show();
+        }
+        else {
+            $(obj).closest(".schedule").find(".by_appointment_contacts").hide();
+
+        }
     }
 
     function removeSchedule(obj) {

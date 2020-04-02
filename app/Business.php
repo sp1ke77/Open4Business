@@ -115,9 +115,9 @@ class Business extends Model
         return Business::getSectorStringFromNumber($this->sector);
     }
 
-    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day)
+    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appoitment,$by_appoitment_contacts)
     {
-        BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day);
+        BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appoitment,$by_appoitment_contacts);
     }
 
     public function removeSchedules()

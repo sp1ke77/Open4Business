@@ -64,7 +64,8 @@
                 podemos usufruir dos produtos e serviços neste período excecional.
         </p>
             <div class="button__wrapper">
-                <a href="{{ route('single_submission.index') }}" class="button button--secondary">Pequenas e médias empresas</a>
+                <a href="{{ route('single_submission.index') }}" class="button button--secondary">Pequenas e médias
+                    empresas</a>
                 <a href="{{ route('mass_submission.index') }}" class="button button--secondary">Grandes empresas e
                     cadeias</a>
             </div>
@@ -81,14 +82,14 @@
     <p>{address}</p>
     <p>{postal_code} {parish}</p>
     <br />
-    <h6>Horário de Funcionamento</h6>
     {schedules}
+    {schedules_by_appointment}
 </script>
 <script type="template/schedules" id="template_schedules">
     <p><b>{type_string}</b></p>
     {schedule_rows}
 </script>
-<script type="template/schedules" id="template_schedule_row">
+<script type="template/schedules" id="template_schedule_by_appointment_row">
     <div class="row">
         <div class="col-5">
             <p>{days}:</p>
@@ -96,7 +97,15 @@
         <div class="col-7">
             <p>{hours}</p>
         </div>
-    </div> 
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <p>Contactos:</p>
+        </div>
+        <div class="col-7">
+            <p>{contacts}</p>
+        </div>
+    </div>
 </script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
 <script>
@@ -186,20 +195,37 @@
                 marker_element.className = 'marker';
                 let schedules_html = "";
                 element.schedules.forEach(schedule => {
+                    let schedule_rows = "";
+                    let schedule_by_appointment_rows = "";
                     let days = getDaysOpenString(schedule);
-                    let schedule_rows = [];
                     days.forEach(day => {
                         let formated_start_hour = schedule.start_hour.substring(0, schedule.start_hour.length - 3);;
-                        let formated_end_hour = schedule.end_hour.substring(0, schedule.end_hour.length - 3);;
+                        let formated_end_hour = schedule.end_hour.substring(0, schedule.end_hour.length - 3);
                         let hours = formated_start_hour + " às " + formated_end_hour;
-                        let template_schedule_row = $("#template_schedule_row").html();
-                        template_schedule_row = template_schedule_row.split("{days}").join(day);
-                        template_schedule_row = template_schedule_row.split("{hours}").join(hours);
-                        schedule_rows.push(template_schedule_row); 
+                        if(schedule.by_appointment) {
+                            let template_schedule_by_appointment_row = $("#template_schedule_by_appointment_row").html();
+                            template_schedule_by_appointment_row = template_schedule_by_appointment_row.split("{days}").join(day);
+                            template_schedule_by_appointment_row = template_schedule_by_appointment_row.split("{hours}").join(hours);
+                            template_schedule_by_appointment_row = template_schedule_by_appointment_row.split("{contacts}").join(schedule.by_appointment_contacts);
+                            schedule_by_appointment_rows += template_schedule_by_appointment_row; 
+                        }
+                        else {
+                            let template_schedule_row = $("#template_schedule_row").html();
+                            template_schedule_row = template_schedule_row.split("{days}").join(day);
+                            template_schedule_row = template_schedule_row.split("{hours}").join(hours);
+                            schedule_rows += template_schedule_row; 
+                        }
                     });
+                    if(schedule_rows != "") {
+                        schedule_rows = "<h6>Horário de Funcionamento</h6>" + schedule_rows;
+                    }
+                    if(schedule_by_appointment_rows != "") {
+                        schedule_by_appointment_rows = "<h6>Horários por Marcação</h6>" + schedule_by_appointment_rows;
+                    }
                     schedules_html = $("#template_schedules").html();
                     schedules_html = schedules_html.split("{type_string}").join(schedule.type_string);
                     schedules_html = schedules_html.split("{schedule_rows}").join(schedule_rows);
+                    schedules_html = schedules_html.split("{schedule_by_appointment_rows}").join(schedule_by_appointment_rows);                    
                 });                
                 let template_html = $("#template_marker").html();
                 template_html = template_html.split("{store_name}").join(element.store_name);
