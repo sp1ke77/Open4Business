@@ -122,13 +122,13 @@
     }
     function getDaysOpenString(schedule) {
         let days = [];
-        days[0] = schedule.sunday;
+        days[0] = schedule.monday;
         days[1] = schedule.tuesday;
         days[2] = schedule.wednesday;
         days[3] = schedule.thrusday;
         days[4] = schedule.friday;
         days[5] = schedule.saturday;
-        days[6] = schedule.monday;
+        days[6] = schedule.sunday;
         console.log(days);
         let schedules = [];
         let found_first = false;

@@ -189,13 +189,13 @@
             <div class="form-group col-9">
                 <label>Dias (Pode Selecionar Múltiplos)</label>
                 <select multiple class="form-control" name="days[]" required>
-                    <option value="sunday">Segunda-Feira</option>
-                    <option value="tueday">Terça-Feira</option>
+                    <option value="monday">Segunda-Feira</option>
+                    <option value="tuesday">Terça-Feira</option>
                     <option value="wednesday">Quarta-Feira</option>
                     <option value="thrusday">Quinta-Feira</option>
                     <option value="friday">Sexta-Feira</option>
                     <option value="saturday">Sabádo</option>
-                    <option value="monday">Domingo</option>
+                    <option value="sunday">Domingo</option>
                 </select>
                 <input type="hidden" name="days[]" value="seperator">
             </div>
@@ -235,8 +235,10 @@
                 address += ", Portugal";
                 $.get('https://nominatim.openstreetmap.org/search?format=json&q='+address, function(data){
                     if(data.length != 0) {
-                        map.setCenter([data[0].lon, data[0].lat,]);
-                        map.setZoom(14);
+                        if($("#find_address_on_map").is(":checked")) {
+                            map.setCenter([data[0].lon, data[0].lat,]);
+                            map.setZoom(14);
+                        }
                     }
                 });
             }
