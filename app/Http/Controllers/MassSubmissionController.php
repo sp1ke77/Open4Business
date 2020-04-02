@@ -7,8 +7,8 @@ use App\Http\Requests\SubmitDocumentRequest;
 use App\Http\Requests\SubmitFormRequest;
 use App\Jobs\ProcessCSVSubmission;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class MassSubmissionController extends Controller
@@ -73,9 +73,9 @@ class MassSubmissionController extends Controller
         try {
             ProcessCSVSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], $csv_filepath, $img_filepath, Auth::user()->id);
         } catch (\Exception $e) {
-            if($e->getMessage() == "VOSTPT_INVALID_CSV") {
+            if ($e->getMessage() == 'VOSTPT_INVALID_CSV') {
                 return back()->withErrors([
-                    "Não foi possível validar o seu formulário. Verifique que o ficheiro obedece a todas as instruções de formatação indicadas. Se pensa tratar-se de um erro contacte-nos pelo e-mail o4b@vost.pt",
+                    'Não foi possível validar o seu formulário. Verifique que o ficheiro obedece a todas as instruções de formatação indicadas. Se pensa tratar-se de um erro contacte-nos pelo e-mail o4b@vost.pt',
                 ])->withInput();
             }
             $errorId = Str::uuid();
