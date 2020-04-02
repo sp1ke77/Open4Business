@@ -41,12 +41,13 @@ class ProcessSingleSubmission implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($firstname,$lastname,$contact,$email, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $schedules, $img_file, $img_file_extension, $submission = null, $auto_validation = false)
+    public function __construct($firstname,$lastname,$contact,$email, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $schedules, $img_file = null, $img_file_extension = null, $submission = null, $auto_validation = false)
     {
         /** SCHEDULES
          * - start_hour
          * - end_hour
          * - type
+         * - section_of_day
          * - sunday
          * - monday
          * - tuesday
@@ -54,6 +55,8 @@ class ProcessSingleSubmission implements ShouldQueue
          * - thrusday
          * - friday
          * - saturday
+         * - by_appointment
+         * - by_appointment_contacts
          */        
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -87,7 +90,9 @@ class ProcessSingleSubmission implements ShouldQueue
     {       
         if ($this->submission == null) {
             $this->submission = Submission::createSubmission($this->firstname, $this->lastname, $this->contact, $this->email);
-            Storage::disk('public_submission')->put($this->submission->id.'.'.$this->img_file_extension, $this->img_file);
+            if ($this->img_file != null) {
+                Storage::disk('public_submission')->put($this->submission->id.'.'.$this->img_file_extension, $this->img_file);
+            }
         }
 
         if ($this->business_id == null) {
@@ -99,7 +104,7 @@ class ProcessSingleSubmission implements ShouldQueue
 
         $entry = $this->submission->addEntry($this->business_id,$this->company, $this->store_name, $this->address, $this->parish, $this->county, $this->district, $this->postal_code, $this->lat, $this->long, $this->phone_number, $this->sector);
         foreach ($this->schedules as $schedule) {
-            $entry->addSchedule($schedule['start_hour'],$schedule['end_hour'],$schedule['sunday'],$schedule['monday'],$schedule['tuesday'],$schedule['wednesday'],$schedule['thrusday'],$schedule['friday'],$schedule['saturday'],$schedule['type'],$schedule['section_of_day']);
+            $entry->addSchedule($schedule['start_hour'],$schedule['end_hour'],$schedule['sunday'],$schedule['monday'],$schedule['tuesday'],$schedule['wednesday'],$schedule['thrusday'],$schedule['friday'],$schedule['saturday'],$schedule['type'],$schedule['section_of_day'],$schedule['by_appointment'],$schedule["by_appointment_contacts"]);
         }
         if($this->auto_validation) {
             $this->submission->validate();

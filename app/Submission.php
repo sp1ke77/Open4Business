@@ -14,44 +14,50 @@ class Submission extends Model
 
     protected $appends = ['image'];
 
-    public static function createSubmission($firstname, $lastname, $contact, $email)
+    public static function createSubmission($firstname, $lastname, $contact, $email, $user_id = null)
     {
         $submission            = new Submission();
         $submission->firstname = $firstname;
         $submission->lastname  = $lastname;
         $submission->contact   = $contact;
         $submission->email     = $email;
+        $submission->user_id   = $user_id;
         $submission->confirmed = false;
         $submission->validated = false;
         $submission->save();
         return $submission;
     }
 
-    public static function open() {
-        return Submission::where('validated','=','0')->orWhere('confirmed','=','0')->get();
+    public static function open()
+    {
+        return Submission::where('validated', '=', '0')->orWhere('confirmed', '=', '0')->get();
     }
 
     public function entries()
     {
         return $this->hasMany(SubmissionEntry::class);
     }
+    
+    public function owner() {
+        return $this->belongsTo(User::class);
+    }
 
     public function getImageAttribute()
     {
         $allowed_extensions = ['.jpg','.jpeg','.png'];
-        $image_name = null;
+        $image_name         = null;
         foreach ($allowed_extensions as $extension) {
-            if(Storage::disk('public_submissions')->exists($this->id.$extension)) {
+            if (Storage::disk('public_submissions')->exists($this->id.$extension)) {
                 $image_name = $this->id.$extension;
                 break;
             }
-        }        
+        }
         return $image_name;
     }
 
-    public function addEntry($business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
+    public function addEntry($business_id, $company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
-        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id,$company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
+        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id, $company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
         return $submission_entry;
     }
 

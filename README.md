@@ -12,3 +12,14 @@ What kind of service is provided
 
 ## Priority 
 This is a critical priority project. All resources should be focused on this, apart from the team that is developing the app for covid19estamoson.gov.pt 
+
+## Runing locally
+
+Be sure to have `docker` and `docker-compose`.
+
+1. `cp .env.example-docker .env`
+1. `docker-compose build`
+1. `docker-compose up -d`
+1. `docker-compose exec laravel-app composer install`
+1. `docker-compose exec laravel-app php artisan config:cache`
+1. `docker-compose exec laravel-app php artisan migrate`

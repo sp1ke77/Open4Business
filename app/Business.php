@@ -63,7 +63,7 @@ class Business extends Model
         return Business::$sector_strings[$sector];
     }
 
-    public static function createBusiness($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email)
+    public static function createBusiness($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email, $user_id = null)
     {
         if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
@@ -84,6 +84,7 @@ class Business extends Model
         $business->lastname     = $lastname;
         $business->contact      = $contact;
         $business->email        = $email;
+        $business->user_id      = $user_id;
         $business->save();
         return $business;
     }
@@ -96,6 +97,10 @@ class Business extends Model
     public function schedules()
     {
         return $this->hasMany(BusinessSchedule::class);
+    }
+
+    public function owner() {
+        return $this->belongsTo(User::class);
     }
 
     public function getImageAttribute()
@@ -111,13 +116,14 @@ class Business extends Model
         return $image_name;
     }
 
-    public function getSectorStringAttribute() {
+    public function getSectorStringAttribute()
+    {
         return Business::getSectorStringFromNumber($this->sector);
     }
 
-    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day)
+    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appoitment, $by_appoitment_contacts)
     {
-        BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day);
+        BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appoitment, $by_appoitment_contacts);
     }
 
     public function removeSchedules()
@@ -127,7 +133,7 @@ class Business extends Model
 
     public function updateStoreInformation($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
     {
-        if (\gettype($sector) == "string") {
+        if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $this->company      = $company;
@@ -206,7 +212,7 @@ class Business extends Model
 
     public function updateSector($sector)
     {
-        if (\gettype($sector) == "string") {
+        if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
         }
         $this->sector = $sector;
@@ -243,6 +249,12 @@ class Business extends Model
     public function updateEmail($email)
     {
         $this->email = $email;
+        $this->save();
+    }
+
+    public function setOwner($user_id)
+    {
+        $this->user_id = $user_id;
         $this->save();
     }
 }
