@@ -26,6 +26,8 @@ class ProcessCSVSubmission implements ShouldQueue
 
     private $img_filepath;
 
+    private $user_id;
+
     private $delimiter;
 
     /**
@@ -33,7 +35,7 @@ class ProcessCSVSubmission implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($firstname, $lastname, $contact, $email, $csv_filepath, $img_filepath)
+    public function __construct($firstname, $lastname, $contact, $email, $csv_filepath, $img_filepath, $user_id)
     {
         $this->firstname    = $firstname;
         $this->lastname     = $lastname;
@@ -41,6 +43,7 @@ class ProcessCSVSubmission implements ShouldQueue
         $this->email        = $email;
         $this->csv_filepath = $csv_filepath;
         $this->img_filepath = $img_filepath;
+        $this->user_id      = $user_id;
         $this->delimiter    = ',';
         $csv_file           = Storage::disk('local_csvfiles')->get($this->csv_filepath);
         $lines              = \explode("\n", $csv_file);
@@ -133,7 +136,7 @@ class ProcessCSVSubmission implements ShouldQueue
                 'schedules'    => $schedules,
             ];
         }
-        ProcessMassSubmission::dispatch($this->firstname, $this->lastname, $this->contact, $this->email, $entries, $this->img_filepath);
+        ProcessMassSubmission::dispatch($this->firstname, $this->lastname, $this->contact, $this->email, $entries, $this->img_filepath,$this->user_id);
         Storage::disk('local_csvfiles')->delete($this->csv_filepath);
     }
 }

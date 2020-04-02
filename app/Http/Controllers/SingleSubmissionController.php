@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmitSingleSubmission;
 use App\Jobs\ProcessSingleSubmission;
+use Illuminate\Support\Facades\Auth;
 
 class SingleSubmissionController extends Controller
 {
@@ -16,6 +17,13 @@ class SingleSubmissionController extends Controller
     public function submit(SubmitSingleSubmission $request)
     {
         $validated = $request->validated();
+        $user_id = null;
+        $user = Auth::user();
+        if($user) {
+            if($user->isBigCompanyUser()) {
+                $user_id = $user->id;
+            }
+        }
         //Create Schedules
         $schedules        = [];
         $separated_days   = [];
@@ -64,7 +72,7 @@ class SingleSubmissionController extends Controller
             ];
         }
         //Create Job
-        ProcessSingleSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], null, $validated['company'], $validated['store_name'], $validated['address'], $validated['parish'], $validated['county'], $validated['district'], $validated['postal_code'], $validated['lat'], $validated['long'], $validated['phone_number'], $validated['sector'], $schedules);
+        ProcessSingleSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], null, $validated['company'], $validated['store_name'], $validated['address'], $validated['parish'], $validated['county'], $validated['district'], $validated['postal_code'], $validated['lat'], $validated['long'], $validated['phone_number'], $validated['sector'], $schedules, $user_id);
         return redirect()->route('single_submission.index');
     }
 }
