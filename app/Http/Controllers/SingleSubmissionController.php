@@ -47,17 +47,20 @@ class SingleSubmissionController extends Controller
         }
         foreach ($validated['start_hour'] as $index => $start_hour) {
             $schedules[] = [
-                'start_hour'     => $start_hour,
-                'end_hour'       => $validated['end_hour'][$index],
-                'type'           => intval($validated['type'][$index]),
-                'section_of_day' => intval($validated['section_of_day'][$index]),
-                'sunday'         => $separated_days[$index]['sunday'],
-                'monday'         => $separated_days[$index]['monday'],
-                'tuesday'        => $separated_days[$index]['tuesday'],
-                'wednesday'      => $separated_days[$index]['wednesday'],
-                'thrusday'       => $separated_days[$index]['thrusday'],
-                'friday'         => $separated_days[$index]['friday'],
-                'saturday'       => $separated_days[$index]['saturday'],
+                'start_hour'              => $start_hour,
+                'end_hour'                => $validated['end_hour'][$index],
+                'type'                    => \intval($validated['type'][$index]),
+                'section_of_day'          => \intval($validated['section_of_day'][$index]),
+                'by_appointment'          => $validated['by_appointment'][$index],
+                'by_appointment_contacts' => $validated['by_appointment_contacts'][$index],
+                'section_of_day'          => \intval($validated['section_of_day'][$index]),
+                'sunday'                  => $separated_days[$index]['sunday'],
+                'monday'                  => $separated_days[$index]['monday'],
+                'tuesday'                 => $separated_days[$index]['tuesday'],
+                'wednesday'               => $separated_days[$index]['wednesday'],
+                'thrusday'                => $separated_days[$index]['thrusday'],
+                'friday'                  => $separated_days[$index]['friday'],
+                'saturday'                => $separated_days[$index]['saturday'],
             ];
         }
         //Create Job

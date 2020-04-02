@@ -27,7 +27,7 @@ class BusinessSchedule extends Model
     public static function getTypeNumberFromString($type)
     {
         $type = \array_search($type, BusinessSchedule::$type_strings, true);
-        if($type == -1) {
+        if ($type == -1) {
             $type = 0;
         }
         return $type;
@@ -36,7 +36,7 @@ class BusinessSchedule extends Model
     public static function getSectionOfDayNumberFromString($section_of_day)
     {
         $section_of_day = \array_search($section_of_day, BusinessSchedule::$section_of_day_strings, true);
-        if($section_of_day == -1) {
+        if ($section_of_day == -1) {
             $section_of_day = 0;
         }
         return $section_of_day;
@@ -52,36 +52,42 @@ class BusinessSchedule extends Model
         return BusinessSchedule::$section_of_day_strings[$section_of_day];
     }
 
-    public static function createSchedule($business_id,$start_hour,$end_hour,$sunday,$monday,$tuesday,$wednesday,$thrusday,$friday,$saturday,$type,$section_of_day) {
-        if (\gettype($type) == "string") {
+    public static function createSchedule($business_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appoitment, $by_appoitment_contacts)
+    {
+        if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
-        $business_schedule = new BusinessSchedule();
-        $business_schedule->business_id = $business_id;
-        $business_schedule->start_hour = $start_hour;
-        $business_schedule->end_hour = $end_hour;
-        $business_schedule->sunday = $sunday;
-        $business_schedule->monday = $monday;
-        $business_schedule->tuesday = $tuesday;
-        $business_schedule->wednesday = $wednesday;
-        $business_schedule->thrusday = $thrusday;
-        $business_schedule->friday = $friday;
-        $business_schedule->saturday = $saturday;
-        $business_schedule->type = $type;
-        $business_schedule->section_of_day = $section_of_day;
+        $business_schedule                         = new BusinessSchedule();
+        $business_schedule->business_id            = $business_id;
+        $business_schedule->start_hour             = $start_hour;
+        $business_schedule->end_hour               = $end_hour;
+        $business_schedule->sunday                 = $sunday;
+        $business_schedule->monday                 = $monday;
+        $business_schedule->tuesday                = $tuesday;
+        $business_schedule->wednesday              = $wednesday;
+        $business_schedule->thrusday               = $thrusday;
+        $business_schedule->friday                 = $friday;
+        $business_schedule->saturday               = $saturday;
+        $business_schedule->type                   = $type;
+        $business_schedule->section_of_day         = $section_of_day;
+        $business_schedule->by_appoitment          = $by_appoitment;
+        $business_schedule->by_appoitment_contacts = $by_appoitment_contacts;
         $business_schedule->save();
         return $business_schedule;
     }
 
-    public function business() {
+    public function business()
+    {
         return $this->belongsTo(Business::class);
     }
 
-    public function getTypeStringAttribute() {
+    public function getTypeStringAttribute()
+    {
         return BusinessSchedule::getTypeStringFromNumber($this->type);
     }
 
-    public function getSectionOfDayStringAttribute() {
+    public function getSectionOfDayStringAttribute()
+    {
         return BusinessSchedule::getSectionOfDayStringFromNumber($this->section_of_day);
     }
 
@@ -141,7 +147,7 @@ class BusinessSchedule extends Model
 
     public function updateType($type)
     {
-        if (\gettype($type) == "string") {
+        if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         $this->type = $type;
@@ -154,6 +160,18 @@ class BusinessSchedule extends Model
             $section_of_day = BusinessSchedule::getSectionOfDayStringFromNumber($section_of_day);
         }
         $this->section_of_day = $section_of_day;
+        $this->save();
+    }
+
+    public function updateByAppoitment($by_appoitment)
+    {
+        $this->by_appoitment = $by_appoitment;
+        $this->save();
+    }
+
+    public function updateByAppoitmentContacts($by_appoitment_contacts)
+    {
+        $this->by_appoitment_contacts = $by_appoitment_contacts;
         $this->save();
     }
 }

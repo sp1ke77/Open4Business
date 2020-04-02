@@ -29,6 +29,8 @@ class SubmitSingleSubmission extends FormRequest
             "end_hour" => ["required", "array"],
             "section_of_day" => ["required", "array"],
             "type" => ["required", "array"],
+            "by_appointment" => ["required", "array"],
+            "by_appointment_contact" => ["nullable", "array"],
             "days" => ["required", "array"],
             "firstname" => ["required", "string"],
             "lastname" => ["required", "string"],
