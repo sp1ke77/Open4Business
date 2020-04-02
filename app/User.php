@@ -57,6 +57,14 @@ class User extends Authenticatable
         return $user;
     }
 
+    public function businesses() {
+        return $this->hasMany(Business::class);
+    }
+
+    public function submissions() {
+        return $this->hasMany(Submission::class);
+    }
+
     public function isTeamUser() {
         return $this->type == 0;
     }

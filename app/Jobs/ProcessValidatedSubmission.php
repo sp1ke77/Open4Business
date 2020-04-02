@@ -37,10 +37,11 @@ class ProcessValidatedSubmission implements ShouldQueue
     {
         foreach ($this->submission->entries as $entry) {
             if ($entry->business_id == null) {
-                $business = Business::createBusiness($entry->company,$entry->store_name, $entry->address, $entry->parish, $entry->county, $entry->district, $entry->postal_code, $entry->lat, $entry->long, $entry->phone_number, $entry->sector, $this->submission->firstname, $this->submission->lastname, $this->submission->contact, $this->submission->email);
+                $business = Business::createBusiness($entry->company,$entry->store_name, $entry->address, $entry->parish, $entry->county, $entry->district, $entry->postal_code, $entry->lat, $entry->long, $entry->phone_number, $entry->sector, $this->submission->firstname, $this->submission->lastname, $this->submission->contact, $this->submission->email, $this->submission->user_id);
                 $entry->updateBusiness($business->id);
             } else {
                 $entry->business->removeSchedules();
+                $entry->business->setOwner($this->submission->user_id);
                 $entry->business->updateContactInformation($this->submission->firstname, $this->submission->lastname, $this->submission->contact, $this->submission->email);
                 $entry->business->updateStoreInformation($entry->company,$entry->store_name, $entry->address, $entry->parish, $entry->county, $entry->district, $entry->postal_code, $entry->lat, $entry->long, $entry->phone_number, $entry->sector);
             }

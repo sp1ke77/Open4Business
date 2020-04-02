@@ -71,7 +71,7 @@ class MassSubmissionController extends Controller
         }
 
         try {
-            ProcessCSVSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], $csv_filepath, $img_filepath);
+            ProcessCSVSubmission::dispatch($validated['firstname'], $validated['lastname'], $validated['contact'], $validated['email'], $csv_filepath, $img_filepath, Auth::user()->id);
         } catch (\Exception $e) {
             if($e->getMessage() == "VOSTPT_INVALID_CSV") {
                 return back()->withErrors([

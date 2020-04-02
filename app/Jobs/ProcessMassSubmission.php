@@ -27,12 +27,14 @@ class ProcessMassSubmission implements ShouldQueue
 
     private $img_filepath;
 
+    private $user_id;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($firstname, $lastname, $contact, $email, $entries, $img_filepath)
+    public function __construct($firstname, $lastname, $contact, $email, $entries, $img_filepath, $user_id)
     {
         /** ENTRIES
          * - business_id
@@ -68,6 +70,7 @@ class ProcessMassSubmission implements ShouldQueue
         $this->email        = $email;
         $this->entries      = $entries;
         $this->img_filepath = $img_filepath;
+        $this->user_id      = $user_id;
     }
 
     /**
@@ -79,7 +82,7 @@ class ProcessMassSubmission implements ShouldQueue
     {
         $img_file           = Storage::disk('local_imgfiles')->get($this->img_filepath);
         $img_file_extension = \pathinfo($this->img_filepath, PATHINFO_EXTENSION);
-        $submission         = Submission::createSubmission($this->firstname, $this->lastname, $this->contact, $this->email);
+        $submission         = Submission::createSubmission($this->firstname, $this->lastname, $this->contact, $this->email, $this->user_id);
         Storage::disk('public_submissions')->put($submission->id.'.'.$img_file_extension, $img_file);
         Storage::disk('local_imgfiles')->delete($this->img_filepath);
         foreach ($this->entries as $entry) {
