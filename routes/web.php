@@ -23,10 +23,15 @@ Auth::routes([
     'reset'    => false,
 ]);
 
+
+Route::get('/validate_token/{validation_token}', 'Backoffice\UsersController@validate_token');
+Route::post('/validate_token', 'Backoffice\UsersController@validation')->name('validate_token');
+
 Route::prefix('single_submission')->name('single_submission.')->group(function () {
     Route::get('/', 'SingleSubmissionController@index')->name('index');
     Route::post('/submit', 'SingleSubmissionController@submit')->name('submit');
 });
+
 
 Route::prefix('mass_submission')->middleware(['auth'])->name('mass_submission.')->group(function () {
     Route::get('/', 'MassSubmissionController@index')->name('index');

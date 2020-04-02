@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateNewUser extends FormRequest
+class ValidateUser extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +15,8 @@ class CreateNewUser extends FormRequest
     public function rules()
     {
         return [
-            "name" => ['required','string'],
-            "email" => ['required','email','unique:users'],
-            "type" => ['required','numeric','between:0,1']
+            'validation_token' => ['required', 'string', 'exists:users,validation_token'],
+            'password'         => ['required', 'string', 'min:6'],
         ];
     }
 }
