@@ -181,7 +181,7 @@
         return schedules;
     }
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY290ZW1lcm8iLCJhIjoiY2p5NzQyeTdvMDc1MzNlbGNnbzh3NjVuOCJ9.cPrQc61yiHA0kOptuuZsSA';
+    mapboxgl.accessToken = 'pk.eyJ1Ijoidm9zdHB0IiwiYSI6ImNrOGo5YnJtYTAzMDgzbG51dTE3dTUzdWEifQ.yphCGp76UE5W-mPWYQ9MsQ';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11', 
