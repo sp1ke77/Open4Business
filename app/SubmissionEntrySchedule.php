@@ -15,7 +15,7 @@ class SubmissionEntrySchedule extends Model
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         if (\gettype($section_of_day) == 'string') {
-            $section_of_day = BusinessSchedule::getSectionOfDayStringFromNumber($section_of_day);
+            $section_of_day = BusinessSchedule::getSectionOfDayNumberFromString($section_of_day);
         }
         $submission_entry_schedule                      = new SubmissionEntrySchedule();
         $submission_entry_schedule->submission_entry_id = $submission_entry_id;

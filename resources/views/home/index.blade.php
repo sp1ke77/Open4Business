@@ -9,10 +9,11 @@
     }
 
     .marker {
-        background-image: url('img/pin.png');
+        background-image: url('/img/pin.png');
         background-size: cover;
-        width: 41px;
-        height: 51px;
+        width: 42px;
+        height: 52px;
+        top: -25px;
         cursor: pointer;
         transition: none;
     }
@@ -63,7 +64,7 @@
                 podemos usufruir dos produtos e serviços neste período excecional.
         </p>
             <div class="button__wrapper">
-                <a href="" class="button button--secondary">Pequenas e médias empresas</a>
+                <a href="{{ route('single_submission.index') }}" class="button button--secondary">Pequenas e médias empresas</a>
                 <a href="{{ route('mass_submission.index') }}" class="button button--secondary">Grandes empresas e
                     cadeias</a>
             </div>
@@ -121,13 +122,13 @@
     }
     function getDaysOpenString(schedule) {
         let days = [];
-        days[0] = schedule.sunday;
+        days[0] = schedule.monday;
         days[1] = schedule.tuesday;
         days[2] = schedule.wednesday;
         days[3] = schedule.thrusday;
         days[4] = schedule.friday;
         days[5] = schedule.saturday;
-        days[6] = schedule.monday;
+        days[6] = schedule.sunday;
         console.log(days);
         let schedules = [];
         let found_first = false;
