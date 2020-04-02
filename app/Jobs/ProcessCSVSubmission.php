@@ -90,34 +90,38 @@ class ProcessCSVSubmission implements ShouldQueue
             if (\mb_strpos(\mb_strtolower($row[0]), 'our') !== false) {
                 continue;
             }
-            $num_of_schedules     = (\count($row) - 12) / 4;
+            $num_of_schedules     = (\count($row) - 12) / 6;
             $current_schedule_num = 12;
             $schedules            = [];
             for ($i = 0; $i < $num_of_schedules; $i++) {
                 if ($row[$current_schedule_num] == '' || $row[$current_schedule_num + 1] == '' || $row[$current_schedule_num + 2] == '' || $row[$current_schedule_num + 3] == '') {
                     continue;
                 }
-                $hours          = $row[$current_schedule_num];
-                $hours          = \explode('-', $hours);
-                $weekdays       = $row[$current_schedule_num + 1];
-                $weekdays       = $this->removeAccents($weekdays);
-                $weekdays       = \mb_strtolower($weekdays);
-                $type           = $row[$current_schedule_num + 2];
-                $section_of_day = $row[$current_schedule_num + 3];
-                $schedules[]    = [
-                    'start_hour'     => $hours[0],
-                    'end_hour'       => $hours[1],
-                    'type'           => $type,
-                    'section_of_day' => $section_of_day,
-                    'sunday'         => \mb_strpos($weekdays, 'domingo') !== false,
-                    'monday'         => \mb_strpos($weekdays, 'segunda') !== false,
-                    'tuesday'        => \mb_strpos($weekdays, 'terca') !== false,
-                    'wednesday'      => \mb_strpos($weekdays, 'quarta') !== false,
-                    'thrusday'       => \mb_strpos($weekdays, 'quinta') !== false,
-                    'friday'         => \mb_strpos($weekdays, 'sexta') !== false,
-                    'saturday'       => \mb_strpos($weekdays, 'sabado') !== false,
+                $hours                   = $row[$current_schedule_num];
+                $hours                   = \explode('-', $hours);
+                $weekdays                = $row[$current_schedule_num + 1];
+                $weekdays                = $this->removeAccents($weekdays);
+                $weekdays                = \mb_strtolower($weekdays);
+                $type                    = $row[$current_schedule_num + 2];
+                $section_of_day          = $row[$current_schedule_num + 3];
+                $by_appointment          = $row[$current_schedule_num + 4] == 'Sim';
+                $by_appointment_contacts = $row[$current_schedule_num + 5];
+                $schedules[]             = [
+                    'start_hour'              => $hours[0],
+                    'end_hour'                => $hours[1],
+                    'type'                    => $type,
+                    'section_of_day'          => $section_of_day,
+                    'by_appointment'          => $by_appointment,
+                    'by_appointment_contacts' => $by_appointment_contacts,
+                    'sunday'                  => \mb_strpos($weekdays, 'domingo') !== false,
+                    'monday'                  => \mb_strpos($weekdays, 'segunda') !== false,
+                    'tuesday'                 => \mb_strpos($weekdays, 'terca') !== false,
+                    'wednesday'               => \mb_strpos($weekdays, 'quarta') !== false,
+                    'thrusday'                => \mb_strpos($weekdays, 'quinta') !== false,
+                    'friday'                  => \mb_strpos($weekdays, 'sexta') !== false,
+                    'saturday'                => \mb_strpos($weekdays, 'sabado') !== false,
                 ];
-                $current_schedule_num = $current_schedule_num + 4;
+                $current_schedule_num = $current_schedule_num + 6;
             }
 
             $entries[] = [
@@ -136,7 +140,7 @@ class ProcessCSVSubmission implements ShouldQueue
                 'schedules'    => $schedules,
             ];
         }
-        ProcessMassSubmission::dispatch($this->firstname, $this->lastname, $this->contact, $this->email, $entries, $this->img_filepath,$this->user_id);
+        ProcessMassSubmission::dispatch($this->firstname, $this->lastname, $this->contact, $this->email, $entries, $this->img_filepath, $this->user_id);
         Storage::disk('local_csvfiles')->delete($this->csv_filepath);
     }
 }
