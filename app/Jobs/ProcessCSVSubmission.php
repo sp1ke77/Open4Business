@@ -51,9 +51,8 @@ class ProcessCSVSubmission implements ShouldQueue
         if (\mb_substr_count($line, ';') > \mb_substr_count($line, ',')) {
             $this->delimiter = ';';
         }
-        $line            = \mb_strtolower($line);
         $validation_data = \str_getcsv($line, $this->delimiter);
-        if ($validation_data[0] != 'our id' || $validation_data[1] != 'empresa') {
+        if ((\mb_strpos(\mb_strtolower($validation_data[0]), 'our') !== false && (\mb_strpos(\mb_strtolower($validation_data[0]), 'id') !== false)) || (\mb_strpos(\mb_strtolower($validation_data[1]), 'empresa') !== false)) {
             $this->delete();
             throw new \Exception('VOSTPT_INVALID_CSV');
         }
