@@ -52,7 +52,7 @@ class ProcessCSVSubmission implements ShouldQueue
             $this->delimiter = ';';
         }
         $validation_data = \str_getcsv($line, $this->delimiter);
-        if ((\mb_strpos(\mb_strtolower($validation_data[0]), 'our') !== false && (\mb_strpos(\mb_strtolower($validation_data[0]), 'id') !== false)) || (\mb_strpos(\mb_strtolower($validation_data[1]), 'empresa') !== false)) {
+        if (!((\mb_strpos(\mb_strtolower($validation_data[0]), 'our') !== false && (\mb_strpos(\mb_strtolower($validation_data[0]), 'id') !== false)) || (\mb_strpos(\mb_strtolower($validation_data[1]), 'empresa') !== false))) {
             $this->delete();
             throw new \Exception('VOSTPT_INVALID_CSV');
         }
