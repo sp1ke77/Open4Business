@@ -102,7 +102,7 @@
         </div>
         <div class="row">
             <div class="form-group col-3">
-                <input type="text" class="form-control" placeholder="Código Postal*" name="postal_code" required>
+                <input type="text" class="form-control" placeholder="Código Postal*" name="postal_code" id="postal_code" required>
             </div>
             <div class="form-group col-3">
                 <input type="text" class="form-control" placeholder="Freguesia*" name="parish" id="parish" required>
@@ -118,14 +118,8 @@
             <div class="col-9">
                 Selecione no mapa a localização da sua loja - Obrigatório
             </div>
-            <div class="col-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="find_address_on_map">
-                    <label class="form-check-label" for="find_address_on_map">
-                        Seguir Morada no Mapa
-                    </label>
-                </div>
-            </div>
+            <input type="checkbox" id="find_address_on_map" style="display:none;" checked>
+            <input type="checkbox" id="get_address_from_map" style="display:none;" checked>
         </div>
         <div id="map"></div>
         <input type="hidden" id="lat" name="lat">
@@ -227,7 +221,7 @@
 </script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoidm9zdHB0IiwiYSI6ImNrOGo5YnJtYTAzMDgzbG51dTE3dTUzdWEifQ.yphCGp76UE5W-mPWYQ9MsQ';
+    mapboxgl.accessToken = 'pk.eyJ1Ijoidm9zdHB0IiwiYSI6ImNqeXR3aHQxdTAyYjgzY21wbDMwaHJoaDQifQ.ql-IskzjOdAtEFvbltquaw';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
@@ -236,7 +230,7 @@
     });
     let marker = null;
     function zoomToNewLocation() {
-        if($("#find_address_on_map").is(":checked")) {
+        if($("#find_address_on_map").is(":checked") && marker == null) {
             let address = $("#address").val();
             let parish = $("#parish").val();
             let county = $("#county").val();
@@ -254,7 +248,7 @@
                 address += ", Portugal";
                 $.get('https://nominatim.openstreetmap.org/search?format=json&q='+address, function(data){
                     if(data.length != 0) {
-                        if($("#find_address_on_map").is(":checked")) {
+                        if($("#find_address_on_map").is(":checked") && marker == null) {
                             map.setCenter([data[0].lon, data[0].lat,]);
                             map.setZoom(14);
                         }
@@ -301,6 +295,14 @@
                             .addTo(map);
                     $("#lat").val(e.lngLat.lat);
                     $("#long").val(e.lngLat.lng);
+                    if($("#get_address_from_map").is(":checked")) {
+                        $.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.lngLat.lat+'&lon='+e.lngLat.lng, function(data){
+                            $("#address").val(data.address.road);
+                            $("#postal_code").val(data.address.postcode);
+                            $("#parish").val(data.address.city_district);
+                            $("#county").val(data.address.county);
+                        });
+                    }
                 }
             }
             else {
