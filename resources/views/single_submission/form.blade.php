@@ -37,19 +37,19 @@
         <h3>Informações da Loja</h3>
         <div class="row">
             <div class="form-group col-6">
-                <input type="text" class="form-control" placeholder="Nome da Empresa" name="company" required>
+                <input type="text" class="form-control" placeholder="Nome da Empresa (obrigatório)" name="company" required>
             </div>
             <div class="form-group col-6">
-                <input type="text" class="form-control" placeholder="Nome da Loja" name="store_name" required>
+                <input type="text" class="form-control" placeholder="Nome da Loja (obrigatório)" name="store_name" required>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-3">
-                <input type="text" class="form-control" placeholder="Contacto da Loja" name="phone_number" required>
+                <input type="text" class="form-control" placeholder="Contacto da Loja (obrigatório)" name="phone_number" required>
             </div>
             <div class="form-group col-9">
                 <select class="form-control" name="sector">
-                    <option selected>Selecione o Sector da Loja</option>
+                    <option selected>Selecione o Sector da Loja  (obrigatório)</option>
                     <option value="0">Minimercados, supermercados, hipermercados</option>
                     <option value="1">Frutarias, talhos, peixarias, padarias</option>
                     <option value="2">Mercados, para venda de produtos alimentares</option>
@@ -97,24 +97,27 @@
         </div>
         <div class="row">
             <div class="form-group col-12">
-                <input type="text" class="form-control" placeholder="Morada" name="address" id="address" required>
+                <input type="text" class="form-control" placeholder="Morada (obrigatório)" name="address" id="address" required>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-3">
-                <input type="text" class="form-control" placeholder="Código Postal" name="postal_code" required>
+                <input type="text" class="form-control" placeholder="Código Postal (obrigatório)" name="postal_code" required>
             </div>
             <div class="form-group col-3">
-                <input type="text" class="form-control" placeholder="Freguesia" name="parish" id="parish" required>
+                <input type="text" class="form-control" placeholder="Freguesia (obrigatório)" name="parish" id="parish" required>
             </div>
             <div class="form-group col-3">
-                <input type="text" class="form-control" placeholder="Concelho" name="county" id="county" required>
+                <input type="text" class="form-control" placeholder="Concelho (obrigatório)" name="county" id="county" required>
             </div>
             <div class="form-group col-3">
-                <input type="text" class="form-control" placeholder="Distrito" name="district" id="district" required>
+                <input type="text" class="form-control" placeholder="Distrito (obrigatório)" name="district" id="district" required>
             </div>
         </div>
         <div class="form-group row">
+            <div class="col-9">
+                Selecione no mapa a localização da sua loja (obrigatório)
+            </div>
             <div class="col-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="find_address_on_map">
@@ -127,7 +130,7 @@
         <div id="map"></div>
         <input type="hidden" id="lat" name="lat">
         <input type="hidden" id="long" name="long">
-        <h3>Horários</h3>
+        <h3>Horários (Pelo menos um Horário)</h3>
         <div id="schedules">
         </div>
         <div class="row">
@@ -137,16 +140,16 @@
         </div>
         <h3>Contactos Pessoais</h3>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nome" name="firstname" required>
+            <input type="text" class="form-control" placeholder="Nome (obrigatório)" name="firstname" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Apelido" name="lastname" required>
+            <input type="text" class="form-control" placeholder="Apelido (obrigatório)" name="lastname" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Telefone" name="contact" required>
+            <input type="text" class="form-control" placeholder="Telefone (obrigatório)" name="contact" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Email" name="email" required>
+            <input type="text" class="form-control" placeholder="Email  (obrigatório)" name="email" required>
         </div>
         <button type="submit" class="btn btn-primary">Submeter</button>
     </form>
@@ -158,17 +161,17 @@
     <div class="schedule">
         <div class="row">
             <div class="form-group col-6">
-                <label>Hora de Abertura</label>
+                <label>Hora de Abertura (obrigatório)</label>
                 <input type="time" class="form-control" name="start_hour[]" min="00:00" max="23:59" required>
             </div>
             <div class="form-group col-6">
-                <label>Hora de Fecho</label>
+                <label>Hora de Fecho (obrigatório)</label>
                 <input type="time" class="form-control" name="end_hour[]" min="00:00" max="23:59" required>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-6">
-                <label>Altura do Dia</label>
+                <label>Altura do Dia (obrigatório)</label>
                 <select class="form-control" name="section_of_day[]" required>
                     <option value="0">Manhã</option>
                     <option value="1">Tarde</option>
@@ -176,7 +179,7 @@
                 </select>
             </div>
             <div class="form-group col-6">
-                <label>Tipo de Horário</label>
+                <label>Tipo de Horário (obrigatório)</label>
                 <select class="form-control" name="type[]" required>
                     <option value="0">Forças de Segurança, Entidades de Proteção Civil e Profissionais de Saúde
                     </option>
@@ -202,8 +205,8 @@
         </div>
         <div class="row">
             <div class="form-group col-9">
-                <label>Dias (Pode Selecionar Múltiplos)</label>
-                <select multiple class="form-control" name="days[]">
+                <label>Dias (Pode Selecionar Múltiplos)  (obrigatório)</label>
+                <select multiple class="form-control" name="days[]" required>
                     <option value="monday">Segunda-Feira</option>
                     <option value="tuesday">Terça-Feira</option>
                     <option value="wednesday">Quarta-Feira</option>
