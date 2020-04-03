@@ -12,6 +12,12 @@
                         @csrf
 
                         <div class="form-group row">
+
+                            <div class="col-12">
+                                <p>Esta é uma área reservada. Insira as credenciais que recebeu da VOST Portugal.</p>
+                                <p>Se ainda não requisitou as suas credenciais envie um e-mail, através do e-mail da empresa, para <a href="mailto:o4b@vost.pt">o4b@vost.pt</a></p>
+                            </div>
+
                             <label for="email"
                                 class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
