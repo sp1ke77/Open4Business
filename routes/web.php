@@ -23,7 +23,7 @@ Auth::routes([
 
 
 Route::get('/validate_token/{validation_token}', 'Backoffice\UsersController@validate_token');
-Route::post('/validate_token', 'Backoffice\UsersController@validation')->name('validate_token');
+	Route::post('/validate_token', 'Backoffice\UsersController@validation')->name('validate_token');
 Route::get('/request_user', 'Backoffice\UsersController@request_user_view')->name('request_user');
 Route::post('/request_user', 'Backoffice\UsersController@request_user');
 
@@ -55,9 +55,11 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
         Route::post('/authorize', 'UsersController@authorized')->name('authorize');
         Route::post('/delete', 'UsersController@delete')->name('delete');
     });
-    Route::prefix('submissions')->middleware(['teamUser'])->name('submissions.')->group(function () {
+    Route::prefix('submissions')->middleware([])->name('submissions.')->group(function () {
         Route::get('/', 'SubmissionsController@index')->name('index');
-        Route::get('/entries/{id}', 'SubmissionsController@entries')->name('entries');
+        Route::get('/{id}', 'SubmissionsController@entries')->name('entries');
+        Route::get('/{submission}/entries/{entry}', 'SubmissionsController@edit')->name('entries.edit');
+        Route::post('/{submission}/entries/{entry}', 'SubmissionsController@update')->name('entries.update');
         Route::get('/schedules/{id}', 'SubmissionsController@schedules')->name('schedules');
         Route::post('/entries/delete', 'SubmissionsController@entries_delete')->name('entries.delete');
         Route::post('/schedules/delete', 'SubmissionsController@schedules_delete')->name('schedules.delete');
@@ -70,4 +72,5 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
         Route::post('/schedules/delete', 'BusinessesController@schedules_delete')->name('schedules.delete');
         Route::post('/delete', 'BusinessesController@delete')->name('delete');
     });
+
 });

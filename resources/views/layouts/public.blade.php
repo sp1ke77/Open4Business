@@ -12,8 +12,8 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url('css/website.css') }}">
-    @yield('styles')
-    <!-- JS -->
+@yield('styles')
+<!-- JS -->
 </head>
 
 <body>
@@ -71,6 +71,11 @@
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link">Política de Privacidade e Política de Cookies</a>
                 </li>
+                @if(!\Auth::guest())
+                    <li class="nav-item">
+                        <a href="{{ route('backoffice.index') }}" class="nav-link">Backoffice</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>
@@ -165,7 +170,7 @@
             </div>
             <div class="col text-center">
                 <div class="cc-img">
-                    <img src="/img/cc.svg" />
+                    <img src="/img/cc.svg"/>
                 </div>
                 <small>
                     <span>#open4business &mdash; <time datetime="2020">2020</time> <abbr

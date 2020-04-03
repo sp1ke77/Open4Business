@@ -19,16 +19,17 @@ class Submission extends Model
 
     public static function createSubmission($firstname, $lastname, $contact, $email, $user_id = null)
     {
-        $submission            = new Submission();
-        $submission->firstname = $firstname;
-        $submission->lastname  = $lastname;
-        $submission->contact   = $contact;
-        $submission->email     = $email;
-        $submission->user_id   = $user_id;
-        $submission->confirmed = false;
-        $submission->validated = false;
+        $submission                   = new Submission();
+        $submission->firstname        = $firstname;
+        $submission->lastname         = $lastname;
+        $submission->contact          = $contact;
+        $submission->email            = $email;
+        $submission->user_id          = $user_id;
+        $submission->confirmed        = false;
+        $submission->validated        = false;
         $submission->validation_token = Str::random();
         $submission->save();
+
         return $submission;
     }
 
@@ -41,14 +42,15 @@ class Submission extends Model
     {
         return $this->hasMany(SubmissionEntry::class);
     }
-    
-    public function owner() {
+
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
 
     public function getImageAttribute()
     {
-        $allowed_extensions = ['.jpg','.jpeg','.png'];
+        $allowed_extensions = ['.jpg', '.jpeg', '.png'];
         $image_name         = null;
         foreach ($allowed_extensions as $extension) {
             if (Storage::disk('public_submissions')->exists($this->id.$extension)) {
@@ -56,12 +58,27 @@ class Submission extends Model
                 break;
             }
         }
+
         return $image_name;
     }
 
-    public function addEntry($business_id, $company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
-    {
-        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id, $company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
+    public function addEntry(
+        $business_id,
+        $company,
+        $store_name,
+        $address,
+        $parish,
+        $county,
+        $district,
+        $postal_code,
+        $lat,
+        $long,
+        $phone_number,
+        $sector
+    ) {
+        $submission_entry = SubmissionEntry::createSubmissionEntry($this->id, $business_id, $company, $store_name,
+            $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector);
+
         return $submission_entry;
     }
 
@@ -91,8 +108,8 @@ class Submission extends Model
 
     public function confirm()
     {
-        if (! $this->confirmed) {
-            $this->confirmed = true;
+        if ( ! $this->confirmed) {
+            $this->confirmed        = true;
             $this->validation_token = null;
             $this->save();
             if ($this->validated) {
@@ -103,7 +120,7 @@ class Submission extends Model
 
     public function validate()
     {
-        if (! $this->validated) {
+        if ( ! $this->validated) {
             $this->validated = true;
             $this->save();
             if ($this->confirmed) {

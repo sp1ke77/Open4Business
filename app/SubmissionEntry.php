@@ -9,26 +9,54 @@ class SubmissionEntry extends Model
 {
     protected $appends = ['sector_string'];
 
-    public static function createSubmissionEntry($submission_id, $business_id, $company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
-    {
+    protected $fillable = [
+        'company',
+        'store_name',
+        'address',
+        'county',
+        'district',
+        'parish',
+        'postal_code',
+        'lat',
+        'long',
+        'phone_number',
+        'sector',
+    ];
+
+    public static function createSubmissionEntry(
+        $submission_id,
+        $business_id,
+        $company,
+        $store_name,
+        $address,
+        $parish,
+        $county,
+        $district,
+        $postal_code,
+        $lat,
+        $long,
+        $phone_number,
+        $sector
+    ) {
         if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
         }
-        $submission_entry                = new SubmissionEntry();
+        $submission_entry = new SubmissionEntry();
         $submission_entry->submission_id = $submission_id;
-        $submission_entry->business_id   = $business_id;
-        $submission_entry->company       = $company;
-        $submission_entry->store_name    = $store_name;
-        $submission_entry->address       = $address;
-        $submission_entry->parish        = $parish;
-        $submission_entry->county        = $county;
-        $submission_entry->district      = $district;
-        $submission_entry->postal_code   = $postal_code;
-        $submission_entry->lat           = $lat;
-        $submission_entry->long          = $long;
-        $submission_entry->phone_number  = $phone_number;
-        $submission_entry->sector        = $sector;
+        $submission_entry->business_id = $business_id;
+        $submission_entry->company = $company;
+        $submission_entry->store_name = $store_name;
+        $submission_entry->address = $address;
+        $submission_entry->parish = $parish;
+        $submission_entry->county = $county;
+        $submission_entry->district = $district;
+        $submission_entry->postal_code = $postal_code;
+        $submission_entry->lat = $lat;
+        $submission_entry->long = $long;
+        $submission_entry->phone_number = $phone_number;
+        $submission_entry->sector = $sector;
         $submission_entry->save();
+
         return $submission_entry;
     }
 
@@ -47,13 +75,30 @@ class SubmissionEntry extends Model
         return $this->hasMany(SubmissionEntrySchedule::class);
     }
 
-    public function getSectorStringAttribute() {
+    public function getSectorStringAttribute()
+    {
         return Business::getSectorStringFromNumber($this->sector);
     }
 
-    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appointment,$by_appointment_contacts)
-    {
-        $submission_entry_schedule = SubmissionEntrySchedule::createSubmissionEntrySchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appointment,$by_appointment_contacts);
+    public function addSchedule(
+        $start_hour,
+        $end_hour,
+        $sunday,
+        $monday,
+        $tuesday,
+        $wednesday,
+        $thrusday,
+        $friday,
+        $saturday,
+        $type,
+        $section_of_day,
+        $by_appointment,
+        $by_appointment_contacts
+    ) {
+        $submission_entry_schedule = SubmissionEntrySchedule::createSubmissionEntrySchedule($this->id, $start_hour,
+            $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,
+            $by_appointment, $by_appointment_contacts);
+
         return $submission_entry_schedule;
     }
 
