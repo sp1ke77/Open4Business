@@ -229,8 +229,8 @@
                     if(schedule_rows != "") {
                         schedule_rows = "<h6>Horário de Funcionamento</h6>" + schedule_rows;
                     }
-                    if(schedule_by_appointment_rows != "") {
-                        schedule_by_appointment_rows = "<h6>Horários por Marcação</h6>" + schedule_by_appointment_rows;
+                    if(schedule_by_appointment_html != "") {
+                        schedule_by_appointment_html = "<h6>Horários por Marcação</h6>" + schedule_by_appointment_rows;
                     }
                     schedules_html = $("#template_schedules").html();
                     schedules_html = schedules_html.split("{type_string}").join(schedule.type_string);
