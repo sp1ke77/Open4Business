@@ -116,7 +116,7 @@
         </div>
         <div class="form-group row">
             <div class="col-9">
-                Selecione no mapa a localização da sua loja*
+                Selecione no mapa a localização da sua loja - Obrigatório
             </div>
             <div class="col-3">
                 <div class="form-check">
