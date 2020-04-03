@@ -93,7 +93,7 @@ class ProcessCSVSubmission implements ShouldQueue
             $current_schedule_num = 12;
             $schedules            = [];
             for ($i = 0; $i < $num_of_schedules; $i++) {
-                if ($row[$current_schedule_num] == '' || $row[$current_schedule_num + 1] == '' || $row[$current_schedule_num + 2] == '' || $row[$current_schedule_num + 3] == '') {
+                if ($row[$current_schedule_num] == '' || $row[$current_schedule_num + 1] == '' || $row[$current_schedule_num + 2] == '' || $row[$current_schedule_num + 3] == '' || $row[$current_schedule_num + 4] == '') {
                     continue;
                 }
                 $hours                   = $row[$current_schedule_num];
