@@ -204,9 +204,9 @@
                 var marker_element = document.createElement('div');
                 marker_element.className = 'marker';
                 let schedules_html = "";
+                let schedule_by_appointment_html = "";
                 element.schedules.forEach(schedule => {
                     let schedule_rows = "";
-                    let schedule_by_appointment_rows = "";
                     let days = getDaysOpenString(schedule);
                     days.forEach(day => {
                         let formated_start_hour = schedule.start_hour.substring(0, schedule.start_hour.length - 3);;
@@ -217,7 +217,7 @@
                             template_schedule_by_appointment_row = template_schedule_by_appointment_row.split("{days}").join(day);
                             template_schedule_by_appointment_row = template_schedule_by_appointment_row.split("{hours}").join(hours);
                             template_schedule_by_appointment_row = template_schedule_by_appointment_row.split("{contacts}").join(schedule.by_appointment_contacts);
-                            schedule_by_appointment_rows += template_schedule_by_appointment_row; 
+                            schedule_by_appointment_html += template_schedule_by_appointment_row; 
                         }
                         else {
                             let template_schedule_row = $("#template_schedule_row").html();
@@ -234,8 +234,7 @@
                     }
                     schedules_html = $("#template_schedules").html();
                     schedules_html = schedules_html.split("{type_string}").join(schedule.type_string);
-                    schedules_html = schedules_html.split("{schedule_rows}").join(schedule_rows);
-                    schedules_html = schedules_html.split("{schedule_by_appointment_rows}").join(schedule_by_appointment_rows);                    
+                    schedules_html = schedules_html.split("{schedule_rows}").join(schedule_rows);                  
                 });                
                 let template_html = $("#template_marker").html();
                 template_html = template_html.split("{store_name}").join(element.store_name);
@@ -245,6 +244,7 @@
                 template_html = template_html.split("{address}").join(element.address);
                 template_html = template_html.split("{postal_code}").join(element.postal_code);
                 template_html = template_html.split("{schedules}").join(schedules_html);
+                template_html = template_html.split("{schedules_by_appointment}").join(schedule_by_appointment_html);
                 new mapboxgl.Marker(marker_element)
                     .setLngLat([element.long,element.lat])
                     .setPopup(new mapboxgl.Popup({ offset: 25, maxWidth: "100vw" }) // add popups
