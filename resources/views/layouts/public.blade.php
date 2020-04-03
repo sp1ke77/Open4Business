@@ -76,7 +76,7 @@
     </nav>
 </header>
 <main>
-    <div class="main__alert" id="cookie-alert">
+    <div class="main__alert" id="cookie-alert" style="display: none;">
         <small class="container">
             Utilizamos cookies para melhorar a experiência de navegação. Sabe mais sobre a nossa política de cookies <a
                     href="#">aqui</a>. <a href="#" class="icon icon--close" id="cookie-alert--close">&times;</a>
