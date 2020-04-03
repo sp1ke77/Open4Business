@@ -161,17 +161,6 @@
                                     title="Coronavirus disease 2019">COVID-19</abbr>
                         </a>
                     </dd>
-                    <dt>
-                        <a href="http://animalar.pt" target="_blank">
-                            animalar.pt
-                        </a>
-                    </dt>
-                    <dd>
-                        <a href="http://animalar.pt" target="_blank">
-                            Site de acesso à informação útil sobre o impacto da <abbr title="Coronavirus disease 2019">COVID-19</abbr>
-                            nos animais de estimação e entidades de acolhimento de animais.
-                        </a>
-                    </dd>
                 </dl>
             </div>
             <div class="col text-center">
