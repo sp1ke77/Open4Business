@@ -83,8 +83,11 @@
                     </div>
                     <div class="form-group">
                         <label for="sector">Sector</label>
-                        <input class="form-control" type="text" name="sector" id="sector"
-                               value="{{ old('sector', $entry->sector) }}">
+                        <select name="sector" id="sector" class="form-control">
+                            @foreach(\App\Business::sectorStrings() as $i => $string)
+                                <option value="{{ $i }}" {{ old('sector', $entry->sector) == $i ? 'selected' : '' }}>{{ $string }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success push-right">Editar</button>

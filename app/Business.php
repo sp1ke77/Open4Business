@@ -257,4 +257,9 @@ class Business extends Model
         $this->user_id = $user_id;
         $this->save();
     }
+
+    public static function sectorStrings()
+    {
+        return self::$sector_strings;
+    }
 }
