@@ -51,9 +51,9 @@ class SubmissionEntry extends Model
         return Business::getSectorStringFromNumber($this->sector);
     }
 
-    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appoitment,$by_appoitment_contacts)
+    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appointment,$by_appointment_contacts)
     {
-        $submission_entry_schedule = SubmissionEntrySchedule::createSubmissionEntrySchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appoitment,$by_appoitment_contacts);
+        $submission_entry_schedule = SubmissionEntrySchedule::createSubmissionEntrySchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day,$by_appointment,$by_appointment_contacts);
         return $submission_entry_schedule;
     }
 

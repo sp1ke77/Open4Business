@@ -52,7 +52,7 @@ class BusinessSchedule extends Model
         return BusinessSchedule::$section_of_day_strings[$section_of_day];
     }
 
-    public static function createSchedule($business_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appoitment, $by_appoitment_contacts)
+    public static function createSchedule($business_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appointment, $by_appointment_contacts)
     {
         if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
@@ -70,8 +70,8 @@ class BusinessSchedule extends Model
         $business_schedule->saturday               = $saturday;
         $business_schedule->type                   = $type;
         $business_schedule->section_of_day         = $section_of_day;
-        $business_schedule->by_appoitment          = $by_appoitment;
-        $business_schedule->by_appoitment_contacts = $by_appoitment_contacts;
+        $business_schedule->by_appointment          = $by_appointment;
+        $business_schedule->by_appointment_contacts = $by_appointment_contacts;
         $business_schedule->save();
         return $business_schedule;
     }
@@ -163,15 +163,15 @@ class BusinessSchedule extends Model
         $this->save();
     }
 
-    public function updateByAppoitment($by_appoitment)
+    public function updateByAppoitment($by_appointment)
     {
-        $this->by_appoitment = $by_appoitment;
+        $this->by_appointment = $by_appointment;
         $this->save();
     }
 
-    public function updateByAppoitmentContacts($by_appoitment_contacts)
+    public function updateByAppoitmentContacts($by_appointment_contacts)
     {
-        $this->by_appoitment_contacts = $by_appoitment_contacts;
+        $this->by_appointment_contacts = $by_appointment_contacts;
         $this->save();
     }
 }

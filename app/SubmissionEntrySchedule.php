@@ -9,7 +9,7 @@ class SubmissionEntrySchedule extends Model
 {
     protected $appends = ['type_string','section_of_day_string'];
 
-    public static function createSubmissionEntrySchedule($submission_entry_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appoitment, $by_appoitment_contacts)
+    public static function createSubmissionEntrySchedule($submission_entry_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appointment, $by_appointment_contacts)
     {
         if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
@@ -30,8 +30,8 @@ class SubmissionEntrySchedule extends Model
         $submission_entry_schedule->saturday               = $saturday;
         $submission_entry_schedule->type                   = $type;
         $submission_entry_schedule->section_of_day         = $section_of_day;
-        $submission_entry_schedule->by_appoitment          = $by_appoitment;
-        $submission_entry_schedule->by_appoitment_contacts = $by_appoitment_contacts;
+        $submission_entry_schedule->by_appointment          = $by_appointment;
+        $submission_entry_schedule->by_appointment_contacts = $by_appointment_contacts;
         $submission_entry_schedule->save();
         return $submission_entry_schedule;
     }
@@ -129,15 +129,15 @@ class SubmissionEntrySchedule extends Model
         $this->save();
     }
 
-    public function updateByAppoitment($by_appoitment)
+    public function updateByAppoitment($by_appointment)
     {
-        $this->by_appoitment = $by_appoitment;
+        $this->by_appointment = $by_appointment;
         $this->save();
     }
 
-    public function updateByAppoitmentContacts($by_appoitment_contacts)
+    public function updateByAppoitmentContacts($by_appointment_contacts)
     {
-        $this->by_appoitment_contacts = $by_appoitment_contacts;
+        $this->by_appointment_contacts = $by_appointment_contacts;
         $this->save();
     }
 }
