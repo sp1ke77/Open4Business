@@ -144,6 +144,11 @@
 
         Dropzone.autoDiscover = false;
 
+        Dropzone.prototype.defaultOptions.dictFallbackMessage = "O teu browser não permite drag and drop";
+        Dropzone.prototype.defaultOptions.dictInvalidFileType = "Tipo de ficheiro inválido.";
+        Dropzone.prototype.defaultOptions.dictCancelUpload = "Cancelar upload";
+        Dropzone.prototype.defaultOptions.dictRemoveFile = "Remover ficheiro";
+
 
         var fileDropZone1 = new Dropzone(".dropzone-logo", {
             maxFiles: 1,
@@ -160,6 +165,10 @@
         });
         fileDropZone2.on("sending", function (file, xhr, formData) {
             formData.append("_token", CSRF_TOKEN);
+        });
+
+        fileDropZone2.on("error", function (file, xhr, formData) {
+           console.log(file, xhr, formData);
         });
     </script>
 @endsection

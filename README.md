@@ -21,5 +21,7 @@ Be sure to have `docker` and `docker-compose`.
 1. `docker-compose build`
 1. `docker-compose up -d`
 1. `docker-compose exec laravel-app composer install`
+1. `docker-compose exec laravel-app php artisan key:generate`
 1. `docker-compose exec laravel-app php artisan config:cache`
 1. `docker-compose exec laravel-app php artisan migrate`
+1. `docker-compose exec laravel-app php user:create_team {name} {email} {password}`
