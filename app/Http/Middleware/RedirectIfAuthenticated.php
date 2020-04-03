@@ -19,7 +19,12 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+            if (Auth::user()->isBigCompanyUser()) {
+                return redirect(RouteServiceProvider::BIGCOMPANY_HOME);
+            }
+            if (Auth::user()->isTeamUser()) {
+                return redirect(RouteServiceProvider::TEAM_HOME);
+            }
         }
 
         return $next($request);

@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -21,12 +23,17 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->isBigCompanyUser()) {
+            return redirect()->route('mass_submission.index');
+        }
+        elseif ($user->isTeamUser()) {
+            return redirect()->route('backoffice.index');
+        }
+
+        return redirect('/');
+    }
 
     /**
      * Create a new controller instance.

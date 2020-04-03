@@ -17,6 +17,7 @@ class ValidateUser extends FormRequest
         return [
             'validation_token' => ['required', 'string', 'exists:users,validation_token'],
             'password'         => ['required', 'string', 'min:6'],
+            'confirm_password' => ['required', 'same:password'],
         ];
     }
 }
