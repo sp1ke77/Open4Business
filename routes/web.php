@@ -20,7 +20,7 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 Auth::routes([
     'verify'   => false,
     'register' => false,
-    'reset'    => false,
+    'reset'    => true,
 ]);
 
 
