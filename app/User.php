@@ -39,9 +39,13 @@ class User extends Authenticatable
         $this->save();
     }
 
-    private static function createUser($name,$email,$password,$type) {
+    private static function createUser($firstname,$lastname,$company,$position,$contact,$email,$password,$type) {
         $user = new User();
-        $user->name = $name;
+        $user->firstname = $firstname;
+        $user->lastname = $lastname;
+        $user->company = $company;
+        $user->position = $position;
+        $user->contact = $contact;
         $user->email = $email;
         $user->password = Hash::make($password);
         $user->type = $type;
@@ -50,12 +54,12 @@ class User extends Authenticatable
         return $user;
     }
 
-    public static function createTeamUser($name,$email,$password) {
-        return User::createUser($name,$email,$password,0);
+    public static function createTeamUser($firstname,$lastname,$company,$position,$contact,$email,$password) {
+        return User::createUser($firstname,$lastname,$company,$position,$contact,$email,$password,0);
     }
 
-    public static function createBigCompanyUser($name,$email,$password) {
-        $user = User::createUser($name,$email,$password,1);
+    public static function createBigCompanyUser($firstname,$lastname,$company,$position,$contact,$email,$password) {
+        $user = User::createUser($firstname,$lastname,$company,$position,$contact,$email,$password,1);
         $user->generateAPIKeyAndAPISecret();
         return $user;
     }
@@ -76,14 +80,38 @@ class User extends Authenticatable
         return $this->type == 1;
     }
 
-    public function updateInformation($name,$email) {
-        $this->name = $name;
+    public function updateInformation($firstname,$lastname,$company,$position,$contact,$email) {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->company = $company;
+        $this->position = $position;
+        $this->contact = $contact;
         $this->email = $email;
         $this->save();
     }
 
-    public function updateName($name) {
-        $this->name = $name;
+    public function updateFirstName($firstname) {
+        $this->firstname = $firstname;
+        $this->save();
+    }
+
+    public function updateLastName($lastname) {
+        $this->lastname = $lastname;
+        $this->save();
+    }
+
+    public function updateCompany($company) {
+        $this->company = $company;
+        $this->save();
+    }
+
+    public function updatePosition($position) {
+        $this->position = $position;
+        $this->save();
+    }
+
+    public function updateContact($contact) {
+        $this->contact = $contact;
         $this->save();
     }
 
@@ -117,6 +145,11 @@ class User extends Authenticatable
     public function validate($password) {
         $this->password = Hash::make($password);
         $this->validation_token = null;
+        $this->save();
+    }
+
+    public function authorize() {
+        $this->authorized = true;
         $this->save();
     }
 }

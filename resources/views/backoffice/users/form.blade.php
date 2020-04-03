@@ -29,9 +29,29 @@
                         <input id="user_id" name="id" type="hidden" value="{{$user->id}}">
                         @endif
                         <div class="form-group">
-                            <label for="user_name">Name</label>
-                            <input type="name" class="form-control" id="user_name" name="name"
-                                value="{{$user == null ? "":$user->name}}">
+                            <label>Primeiro Nome</label>
+                            <input type="text" class="form-control" name="firstname"
+                                value="{{$user == null ? "":$user->firstname}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Último Nome</label>
+                            <input type="text" class="form-control" name="lastname"
+                                value="{{$user == null ? "":$user->lastname}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Empresa</label>
+                            <input type="text" class="form-control" name="company"
+                                value="{{$user == null ? "":$user->company}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Cargo</label>
+                            <input type="text" class="form-control" name="position"
+                                value="{{$user == null ? "":$user->company}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Contacto Telefónico</label>
+                            <input type="text" class="form-control" name="contact"
+                                value="{{$user == null ? "":$user->contact}}">
                         </div>
                         <div class="form-group">
                             <label for="user_email">Email address</label>
@@ -39,7 +59,7 @@
                                 value="{{$user == null ? "":$user->email}}">
                         </div>
                         @if ($user != null)
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label for="user_password">Password</label>
                             <input type="password" class="form-control" id="user_password" name="password" value=""
                                 placeholder="Leave empty to keep the same password">
@@ -53,9 +73,17 @@
                                 <option value="1">Big Company</option>
                             </select>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                     @if ($user != null)
+                    @if ($user->authorized == false)
+                    <form method="POST" action="{{route('backoffice.users.authorize')}}">
+                        @csrf
+                        <input id="user_id" name="id" type="hidden" value="{{$user->id}}">
+                        <button type="submit" class="btn btn-success">Validate</button>
+                    </form>
+                    @endif
                     <form method="POST" action="{{route('backoffice.users.delete')}}">
                         @csrf
                         <input id="user_id" name="id" type="hidden" value="{{$user->id}}">

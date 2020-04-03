@@ -67,8 +67,12 @@
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                                 @endif
+                                <a class="btn btn-link" href="{{ route('request_user') }}">
+                                    Ainda não tens as credenciais para o teu negócio? Requisita aqui as tuas
+                                </a>
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>

@@ -15,8 +15,6 @@ declare(strict_types=1);
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-
-
 Auth::routes([
     'verify'   => false,
     'register' => false,
@@ -26,6 +24,9 @@ Auth::routes([
 
 Route::get('/validate_token/{validation_token}', 'Backoffice\UsersController@validate_token');
 Route::post('/validate_token', 'Backoffice\UsersController@validation')->name('validate_token');
+Route::get('/request_user', 'Backoffice\UsersController@request_user_view')->name('request_user');
+Route::post('/request_user', 'Backoffice\UsersController@request_user');
+
 
 
 Route::prefix('single_submission')->name('single_submission.')->group(function () {
@@ -51,6 +52,7 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
         Route::get('/edit/{id}', 'UsersController@edit')->name('edit');
         Route::post('/create', 'UsersController@create')->name('create');
         Route::post('/update', 'UsersController@update')->name('update');
+        Route::post('/authorize', 'UsersController@authorize')->name('authorize');
         Route::post('/delete', 'UsersController@delete')->name('delete');
     });
     Route::prefix('submissions')->middleware(['teamUser'])->name('submissions.')->group(function () {

@@ -16,7 +16,11 @@ class UpdateUser extends FormRequest
     {
         return [
             "id" => ['required','exists:users'],
-            "name" => ['required','string'],
+            "firstname" => ['nullable','string'],
+            "lastname" => ['nullable','string'],
+            "position" => ['nullable','string'],
+            "company" => ['nullable','string'],
+            "contact" => ['nullable','string'],
             "email" => ['required','email',ValidationRule::unique('users')->ignore($this->id)],
             "password" => ['nullable','string','min:6'],
             "type" => ['required','integer','between:0,1']
