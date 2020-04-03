@@ -36,7 +36,7 @@ Route::prefix('single_submission')->name('single_submission.')->group(function (
 });
 
 
-Route::prefix('mass_submission')->middleware(['auth'])->name('mass_submission.')->group(function () {
+Route::prefix('mass_submission')->middleware(['auth','bigCompanyUser'])->name('mass_submission.')->group(function () {
     Route::get('/', 'MassSubmissionController@index')->name('index');
     Route::post('/documents', 'MassSubmissionController@submitDocuments')->name('infoupload');
     Route::post('/form', 'MassSubmissionController@submitForm')->name('submitform');
