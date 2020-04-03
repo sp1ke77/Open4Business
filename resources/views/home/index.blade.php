@@ -89,6 +89,16 @@
     <p><b>{type_string}</b></p>
     {schedule_rows}
 </script>
+<script type="template/schedules" id="template_schedule_row">
+    <div class="row">
+        <div class="col-5">
+            <p>{days}:</p>
+        </div>
+        <div class="col-7">
+            <p>{hours}</p>
+        </div>
+    </div>
+</script>
 <script type="template/schedules" id="template_schedule_by_appointment_row">
     <div class="row">
         <div class="col-5">
