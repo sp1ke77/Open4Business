@@ -188,7 +188,8 @@
         <div class="row">
             <div class="col-3">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" onclick="scheduleByAppointment(this)" name="by_appointment[]">
+                    <input class="form-check-input" type="checkbox" onclick="scheduleByAppointment(this)" value="true" name="by_appointment[]">
+                    <input class='by_appointment_hidden' type='hidden' value="false" name='by_appointment[]'>
                     <label class="form-check-label">
                         Por Marcação
                     </label>
@@ -267,8 +268,10 @@
     function scheduleByAppointment(obj) {
         if($(obj).is(":checked")) {
             $(obj).closest(".schedule").find(".by_appointment_contacts").show();
+            $(obj).closest(".schedule").find(".by_appointment_hidden").prop("disabled", true);
         }
         else {
+            $(obj).closest(".schedule").find(".by_appointment_hidden").prop("disabled", false);
             $(obj).closest(".schedule").find(".by_appointment_contacts").hide();
 
         }
