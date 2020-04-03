@@ -61,7 +61,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($users_not_authorized as $user)
                             <tr>
                                 <th scope="row">{{$user->id}}</th>
                                 <td>{{$user->firstname}} {{$user->lastname}}</td>

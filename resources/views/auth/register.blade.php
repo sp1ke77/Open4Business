@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('request_user') }}">
                         @csrf
-                                                
+
                         <div class="form-group row">
                             <label for="firstname"
                                 class="col-md-4 col-form-label text-md-right">{{ __('Primeiro Nome') }}</label>
@@ -60,14 +60,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="contact"
+                            <label for="company"
                                 class="col-md-4 col-form-label text-md-right">{{ __('Empresa') }}</label>
 
                             <div class="col-md-6">
-                                <input id="contact" type="text" class="form-control @error('contact') is-invalid @enderror"
-                                    name="contact" value="{{ old('contact') }}" required autocomplete="contact" autofocus>
+                                <input id="company" type="text" class="form-control @error('company') is-invalid @enderror"
+                                    name="company" value="{{ old('company') }}" required autocomplete="company" autofocus>
 
-                                @error('contact')
+                                @error('company')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

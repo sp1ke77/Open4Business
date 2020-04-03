@@ -18,8 +18,8 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        $users_not_authorized = User::where('authorized', '=', false)->get();
+        $users = User::where('authorized', true)->get();
+        $users_not_authorized = User::where('authorized', false)->get();
         return view('backoffice.users.index', ['users' => $users, 'users_not_authorized' => $users_not_authorized]);
     }
 
@@ -104,11 +104,11 @@ class UsersController extends Controller
         return redirect()->route('login');
     }
 
-    public function authorize(AuthorizeUser $request)
+    public function authorized(AuthorizeUser $request)
     {
         $validated = $request->validated();
         $user      = User::find($validated['id']);
-        $user->authorize();
+        $user->authorized();
         $user->notify(new SendUserCreationEmail($user));
         return redirect()->route('backoffice.users.index');
     }

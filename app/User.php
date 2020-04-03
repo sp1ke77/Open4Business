@@ -148,7 +148,7 @@ class User extends Authenticatable
         $this->save();
     }
 
-    public function authorize() {
+    public function authorized() {
         $this->authorized = true;
         $this->save();
     }

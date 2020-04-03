@@ -52,7 +52,7 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
         Route::get('/edit/{id}', 'UsersController@edit')->name('edit');
         Route::post('/create', 'UsersController@create')->name('create');
         Route::post('/update', 'UsersController@update')->name('update');
-        Route::post('/authorize', 'UsersController@authorize')->name('authorize');
+        Route::post('/authorize', 'UsersController@authorized')->name('authorize');
         Route::post('/delete', 'UsersController@delete')->name('delete');
     });
     Route::prefix('submissions')->middleware(['teamUser'])->name('submissions.')->group(function () {
