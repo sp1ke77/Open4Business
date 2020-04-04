@@ -10,7 +10,7 @@ class BusinessSchedule extends Model
 {
     use SoftDeletes;
 
-    protected $appends = ['type_string','section_of_day_string'];
+    protected $appends = ['type_string', 'section_of_day_string'];
 
     private static $type_strings = [
         'Forças de Segurança, Entidades de Proteção Civil e Profissionais de Saúde',
@@ -30,6 +30,7 @@ class BusinessSchedule extends Model
         if ($type == -1) {
             $type = 0;
         }
+
         return $type;
     }
 
@@ -39,6 +40,7 @@ class BusinessSchedule extends Model
         if ($section_of_day == -1) {
             $section_of_day = 0;
         }
+
         return $section_of_day;
     }
 
@@ -52,27 +54,42 @@ class BusinessSchedule extends Model
         return BusinessSchedule::$section_of_day_strings[$section_of_day];
     }
 
-    public static function createSchedule($business_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appointment, $by_appointment_contacts)
-    {
+    public static function createSchedule(
+        $business_id,
+        $start_hour,
+        $end_hour,
+        $sunday,
+        $monday,
+        $tuesday,
+        $wednesday,
+        $thrusday,
+        $friday,
+        $saturday,
+        $type,
+        $section_of_day,
+        $by_appointment,
+        $by_appointment_contacts
+    ) {
         if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
-        $business_schedule                         = new BusinessSchedule();
-        $business_schedule->business_id            = $business_id;
-        $business_schedule->start_hour             = $start_hour;
-        $business_schedule->end_hour               = $end_hour;
-        $business_schedule->sunday                 = $sunday;
-        $business_schedule->monday                 = $monday;
-        $business_schedule->tuesday                = $tuesday;
-        $business_schedule->wednesday              = $wednesday;
-        $business_schedule->thrusday               = $thrusday;
-        $business_schedule->friday                 = $friday;
-        $business_schedule->saturday               = $saturday;
-        $business_schedule->type                   = $type;
-        $business_schedule->section_of_day         = $section_of_day;
+        $business_schedule                          = new BusinessSchedule();
+        $business_schedule->business_id             = $business_id;
+        $business_schedule->start_hour              = $start_hour;
+        $business_schedule->end_hour                = $end_hour;
+        $business_schedule->sunday                  = $sunday;
+        $business_schedule->monday                  = $monday;
+        $business_schedule->tuesday                 = $tuesday;
+        $business_schedule->wednesday               = $wednesday;
+        $business_schedule->thrusday                = $thrusday;
+        $business_schedule->friday                  = $friday;
+        $business_schedule->saturday                = $saturday;
+        $business_schedule->type                    = $type;
+        $business_schedule->section_of_day          = $section_of_day;
         $business_schedule->by_appointment          = $by_appointment;
         $business_schedule->by_appointment_contacts = $by_appointment_contacts;
         $business_schedule->save();
+
         return $business_schedule;
     }
 
@@ -173,5 +190,10 @@ class BusinessSchedule extends Model
     {
         $this->by_appointment_contacts = $by_appointment_contacts;
         $this->save();
+    }
+
+    public static function typeStrings()
+    {
+        return self::$type_strings;
     }
 }

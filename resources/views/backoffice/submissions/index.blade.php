@@ -39,7 +39,11 @@
                                             Entries</a></td>
                                     <td>{{$submission->confirmed?"Yes":"No"}}</td>
                                     <td>{{$submission->validated?"Yes":"No"}}</td>
-                                    <td><a href="#" onclick="confirmValidation({{$submission->id}})">Validate</a>|<a
+
+                                    <td>
+                                        @if(\Auth::user()->isTeamUser())
+                                            <a href="#" onclick="confirmValidation({{$submission->id}})">Validate</a>
+                                        |@endif<a
                                                 href="#" onclick="confirmDeletion({{$submission->id}})">Delete</a></td>
                                 </tr>
                             @endforeach

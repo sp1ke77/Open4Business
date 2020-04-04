@@ -7,32 +7,60 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubmissionEntrySchedule extends Model
 {
-    protected $appends = ['type_string','section_of_day_string'];
+    protected $appends = ['type_string', 'section_of_day_string'];
 
-    public static function createSubmissionEntrySchedule($submission_entry_id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appointment, $by_appointment_contacts)
-    {
+    protected $fillable = [
+        'start_hour',
+        'end_hour',
+        'sunday',
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thrusday',
+        'friday',
+        'saturday',
+        'type',
+    ];
+
+    public static function createSubmissionEntrySchedule(
+        $submission_entry_id,
+        $start_hour,
+        $end_hour,
+        $sunday,
+        $monday,
+        $tuesday,
+        $wednesday,
+        $thrusday,
+        $friday,
+        $saturday,
+        $type,
+        $section_of_day,
+        $by_appointment,
+        $by_appointment_contacts
+    ) {
         if (\gettype($type) == 'string') {
             $type = BusinessSchedule::getTypeNumberFromString($type);
         }
         if (\gettype($section_of_day) == 'string') {
             $section_of_day = BusinessSchedule::getSectionOfDayNumberFromString($section_of_day);
         }
-        $submission_entry_schedule                         = new SubmissionEntrySchedule();
-        $submission_entry_schedule->submission_entry_id    = $submission_entry_id;
-        $submission_entry_schedule->start_hour             = $start_hour;
-        $submission_entry_schedule->end_hour               = $end_hour;
-        $submission_entry_schedule->sunday                 = $sunday;
-        $submission_entry_schedule->monday                 = $monday;
-        $submission_entry_schedule->tuesday                = $tuesday;
-        $submission_entry_schedule->wednesday              = $wednesday;
-        $submission_entry_schedule->thrusday               = $thrusday;
-        $submission_entry_schedule->friday                 = $friday;
-        $submission_entry_schedule->saturday               = $saturday;
-        $submission_entry_schedule->type                   = $type;
-        $submission_entry_schedule->section_of_day         = $section_of_day;
+        $submission_entry_schedule                          = new SubmissionEntrySchedule();
+        $submission_entry_schedule->submission_entry_id     = $submission_entry_id;
+        $submission_entry_schedule->start_hour              = $start_hour;
+        $submission_entry_schedule->end_hour                = $end_hour;
+        $submission_entry_schedule->sunday                  = $sunday;
+        $submission_entry_schedule->monday                  = $monday;
+        $submission_entry_schedule->tuesday                 = $tuesday;
+        $submission_entry_schedule->wednesday               = $wednesday;
+        $submission_entry_schedule->thrusday                = $thrusday;
+        $submission_entry_schedule->friday                  = $friday;
+        $submission_entry_schedule->saturday                = $saturday;
+        $submission_entry_schedule->type                    = $type;
+        $submission_entry_schedule->section_of_day          = $section_of_day;
         $submission_entry_schedule->by_appointment          = $by_appointment;
         $submission_entry_schedule->by_appointment_contacts = $by_appointment_contacts;
         $submission_entry_schedule->save();
+
         return $submission_entry_schedule;
     }
 

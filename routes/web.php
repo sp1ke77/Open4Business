@@ -60,7 +60,11 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
         Route::get('/{id}', 'SubmissionsController@entries')->name('entries');
         Route::get('/{submission}/entries/{entry}', 'SubmissionsController@edit')->name('entries.edit');
         Route::post('/{submission}/entries/{entry}', 'SubmissionsController@update')->name('entries.update');
+
+        Route::get('/schedules/{entry}/edit/{schedule}', 'Submissions\SchedulesController@edit')->name('schedules.edit');
+        Route::post('/schedules/{entry}/edit/{schedule}', 'Submissions\SchedulesController@update')->name('schedules.update');
         Route::get('/schedules/{id}', 'SubmissionsController@schedules')->name('schedules');
+
         Route::post('/entries/delete', 'SubmissionsController@entries_delete')->name('entries.delete');
         Route::post('/schedules/delete', 'SubmissionsController@schedules_delete')->name('schedules.delete');
         Route::post('/validate', 'SubmissionsController@validation')->name('validate');
