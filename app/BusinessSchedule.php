@@ -12,6 +12,19 @@ class BusinessSchedule extends Model
 
     protected $appends = ['type_string', 'section_of_day_string'];
 
+    protected $fillable = [
+        'start_hour',
+        'end_hour',
+        'sunday',
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thrusday',
+        'friday',
+        'saturday',
+        'type',
+    ];
+    
     private static $type_strings = [
         'Forças de Segurança, Entidades de Proteção Civil e Profissionais de Saúde',
         'Idosos / Maiores de 65 anos / Grupo de Risco',
