@@ -72,6 +72,8 @@ Route::prefix('backoffice')->middleware(['auth'])->namespace('Backoffice')->name
     });
     Route::prefix('businesses')->middleware(['teamUser'])->name('businesses.')->group(function () {
         Route::get('/', 'BusinessesController@index')->name('index');
+        Route::get('/{business}', 'BusinessesController@edit')->name('edit');
+        Route::post('/{business}', 'BusinessesController@update')->name('update');
         Route::get('/schedules/{id}', 'BusinessesController@schedules')->name('schedules');
         Route::post('/schedules/delete', 'BusinessesController@schedules_delete')->name('schedules.delete');
         Route::post('/delete', 'BusinessesController@delete')->name('delete');

@@ -8,7 +8,21 @@ use Illuminate\Support\Facades\Storage;
 
 class Business extends Model
 {
-    protected $appends = ['image','sector_string'];
+    protected $appends = ['image', 'sector_string'];
+
+    protected $fillable = [
+        'company',
+        'store_name',
+        'address',
+        'county',
+        'district',
+        'parish',
+        'postal_code',
+        'lat',
+        'long',
+        'phone_number',
+        'sector',
+    ];
 
     private static $sector_strings = [
         'Minimercados, supermercados, hipermercados',
@@ -55,6 +69,7 @@ class Business extends Model
         if ($sector == -1) {
             $sector = 0;
         }
+
         return $sector;
     }
 
@@ -63,8 +78,24 @@ class Business extends Model
         return Business::$sector_strings[$sector];
     }
 
-    public static function createBusiness($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector, $firstname, $lastname, $contact, $email, $user_id = null)
-    {
+    public static function createBusiness(
+        $company,
+        $store_name,
+        $address,
+        $parish,
+        $county,
+        $district,
+        $postal_code,
+        $lat,
+        $long,
+        $phone_number,
+        $sector,
+        $firstname,
+        $lastname,
+        $contact,
+        $email,
+        $user_id = null
+    ) {
         if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
         }
@@ -86,12 +117,14 @@ class Business extends Model
         $business->email        = $email;
         $business->user_id      = $user_id;
         $business->save();
+
         return $business;
     }
 
     public static function findBusinesses($lat, $long, $store_name)
     {
-        return Business::whereBetween('lat', [$lat - 0.0001, $lat + 0.0001])->whereBetween('long', [$long - 0.0001, $long + 0.0001])->where('store_name', '=', $store_name)->get();
+        return Business::whereBetween('lat', [$lat - 0.0001, $lat + 0.0001])->whereBetween('long',
+            [$long - 0.0001, $long + 0.0001])->where('store_name', '=', $store_name)->get();
     }
 
     public function schedules()
@@ -99,13 +132,14 @@ class Business extends Model
         return $this->hasMany(BusinessSchedule::class);
     }
 
-    public function owner() {
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
 
     public function getImageAttribute()
     {
-        $allowed_extensions = ['.jpg','.jpeg','.png'];
+        $allowed_extensions = ['.jpg', '.jpeg', '.png'];
         $image_name         = null;
         foreach ($allowed_extensions as $extension) {
             if (Storage::disk('public_businesses')->exists($this->id.$extension)) {
@@ -113,6 +147,7 @@ class Business extends Model
                 break;
             }
         }
+
         return $image_name;
     }
 
@@ -121,9 +156,23 @@ class Business extends Model
         return Business::getSectorStringFromNumber($this->sector);
     }
 
-    public function addSchedule($start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appointment, $by_appointment_contacts)
-    {
-        BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday, $thrusday, $friday, $saturday, $type, $section_of_day, $by_appointment, $by_appointment_contacts);
+    public function addSchedule(
+        $start_hour,
+        $end_hour,
+        $sunday,
+        $monday,
+        $tuesday,
+        $wednesday,
+        $thrusday,
+        $friday,
+        $saturday,
+        $type,
+        $section_of_day,
+        $by_appointment,
+        $by_appointment_contacts
+    ) {
+        BusinessSchedule::createSchedule($this->id, $start_hour, $end_hour, $sunday, $monday, $tuesday, $wednesday,
+            $thrusday, $friday, $saturday, $type, $section_of_day, $by_appointment, $by_appointment_contacts);
     }
 
     public function removeSchedules()
@@ -131,8 +180,19 @@ class Business extends Model
         $this->schedules()->delete();
     }
 
-    public function updateStoreInformation($company, $store_name, $address, $parish, $county, $district, $postal_code, $lat, $long, $phone_number, $sector)
-    {
+    public function updateStoreInformation(
+        $company,
+        $store_name,
+        $address,
+        $parish,
+        $county,
+        $district,
+        $postal_code,
+        $lat,
+        $long,
+        $phone_number,
+        $sector
+    ) {
         if (\gettype($sector) == 'string') {
             $sector = Business::getSectorNumberFromString($sector);
         }

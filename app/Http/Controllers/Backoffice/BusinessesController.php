@@ -11,28 +11,62 @@ use Illuminate\Http\Request;
 
 class BusinessesController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $businesses = Business::all();
-        return view('backoffice.businesses.index',["businesses" => $businesses]);
+
+        return view('backoffice.businesses.index', ["businesses" => $businesses]);
     }
 
-    public function schedules($id) {
-        $business = Business::find($id);
-        return view('backoffice.businesses.schedules',["business" => $business]);
+    public function edit(Business $business)
+    {
+        return response()->view('backoffice.businesses.edit', ['business' => $business]);
     }
 
-    public function delete(DeleteBusiness $request) {
-        $validated = $request->validated();
-        $business = Business::find($validated["id"]);
-        $business->delete();
+    public function update(Business $business, Request $request)
+    {
+        $validated_data = $request->validate([
+            'company'      => 'required',
+            'store_name'   => 'required',
+            'address'      => 'required',
+            'county'       => 'required',
+            'district'     => 'required',
+            'parish'       => 'required',
+            'postal_code'  => 'required',
+            'lat'          => 'required',
+            'long'         => 'required',
+            'phone_number' => 'required',
+            'sector'       => 'required',
+        ]);
+
+        $business->update($validated_data);
+
         return redirect()->route('backoffice.businesses.index');
     }
 
-    public function schedules_delete(DeleteBusinessSchedule $request) {
+    public function schedules($id)
+    {
+        $business = Business::find($id);
+
+        return view('backoffice.businesses.schedules', ["business" => $business]);
+    }
+
+    public function delete(DeleteBusiness $request)
+    {
         $validated = $request->validated();
+        $business  = Business::find($validated["id"]);
+        $business->delete();
+
+        return redirect()->route('backoffice.businesses.index');
+    }
+
+    public function schedules_delete(DeleteBusinessSchedule $request)
+    {
+        $validated         = $request->validated();
         $business_schedule = BusinessSchedule::find($validated["id"]);
-        $business_id = $business_schedule->business->id;
+        $business_id       = $business_schedule->business->id;
         $business_schedule->delete();
-        return redirect()->route('backoffice.businesses.schedules',$business_id);
+
+        return redirect()->route('backoffice.businesses.schedules', $business_id);
     }
 }
