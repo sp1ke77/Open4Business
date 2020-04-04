@@ -75,7 +75,7 @@ class MassSubmissionController extends Controller
         } catch (\Exception $e) {
             if ($e->getMessage() == 'VOSTPT_INVALID_CSV') {
                 return back()->withErrors([
-                    'Não foi possível validar o seu formulário. Verifique que o ficheiro obedece a todas as instruções de formatação indicadas. Se pensa tratar-se de um erro contacte-nos pelo e-mail o4b@vost.pt',
+                    'Não foi possível validar o seu formulário. Verifique que o ficheiro obedece a todas as instruções de formatação indicadas. Se pensa tratar-se de um erro contacte-nos pelo e-mail <a href="mailto:o4b@vost.pt">o4b@vost.pt</a>',
                 ])->withInput();
             }
             $errorId = Str::uuid();
